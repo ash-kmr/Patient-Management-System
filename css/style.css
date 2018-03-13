@@ -1,0 +1,48 @@
+ .navbar {
+  min-height: 80px;
+}
+.navbar-fix {
+  position: fixed;
+  z-index: 8;
+  opacity: 1;
+  background-color: white;
+  border-color: white;
+  color:black;
+}
+.nav.navbar-nav.navbar-right a{
+    color: black;
+    font-size: 1.2em;
+}
+.nav.navbar-nav.navbar-right a:hover, .nav.navbar-nav.navbar-right a:target {
+  color: #6a0505;
+  border-bottom: 4.5px solid #061080;
+}
+.nav.navbar-nav.navbar-right a{
+	-webkit-transition: all 200ms linear, color 200ms linear;
+}
+
+.menuitem{
+	color:blue;
+	font-style: bold;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 26.5px;
+    padding-bottom: 26.5px;
+    line-height: 27px;
+  }
+}
