@@ -1,10 +1,33 @@
-/* carousal */
-.carousel-control.left, .carousel-control.right {
-    background-image: none
-}
 @font-face {
 font-family: DeliciousRoman;
 src: url(/Delicious-Roman.otf);
+}
+@import  url(https://fonts.googleapis.com/css?family=Montserrat);
+.img-responsive{
+  padding-left: 0;
+  padding-right: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+/* input */
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #555;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    background-color: #5E5E5E;
+}
+
+input[type=text]:focus {
+    border: 3px solid #ccc;
+}
+/* carousal */
+.carousel-control.left, .carousel-control.right {
+    background-image: none
 }
 .carousel-caption {
     top: 38%;
