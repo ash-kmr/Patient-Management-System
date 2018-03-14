@@ -2,26 +2,75 @@
 .carousel-control.left, .carousel-control.right {
     background-image: none
 }
-
+@font-face {
+font-family: DeliciousRoman;
+src: url(/Delicious-Roman.otf);
+}
 .carousel-caption {
     top: 38%;
     bottom: 62%;
+    float: left;
 }
 .carousel-inner{
   width:100%;
+  max-height: 75vh;
 }
 .carousel-indicators li {
   display: inline-block;
-  width: 40px;
-  height: 10px;
   margin: 1px;
   text-indent: -999px;
   cursor: pointer;
-  background-color: grey;
-  background-color: rgba(111, 3, 3, 100);
+  background-color: white;
+  background-color: rgba(255  , 255, 255, 255);
   opacity: 0.9;
   border: 0px solid #fff;
   border-radius: 0px;
+}
+.carousel-indicators .active{
+    background-color: red;
+}
+/* carousel end*/
+/* pulse button*/
+.pulse-button {
+
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: none;
+  box-shadow: 0 0 0 0 rgba(7, 99, 171, 0.7);
+  border-radius: 50%;
+  background-color: #0773c8;
+  
+  background-size:cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+.pulse-button:hover 
+{
+  -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+}
+
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(7, 99, 171, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(7, 99, 171, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(7, 99, 171, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 45px rgba(7, 99, 171, 0);}}
+
+/* pulse button end*/
+h1{
+  font-family: Autour One;
+}
+h4{
+  font-family: Autour One;
+}
+h3{
+  font-family: Autour One;
+}
+h2{
+  font-family: Autour One;
 }
  .navbar {
   min-height: 80px;
