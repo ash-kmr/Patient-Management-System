@@ -1,3 +1,28 @@
+/* carousal */
+.carousel-control.left, .carousel-control.right {
+    background-image: none
+}
+
+.carousel-caption {
+    top: 38%;
+    bottom: 62%;
+}
+.carousel-inner{
+  width:100%;
+}
+.carousel-indicators li {
+  display: inline-block;
+  width: 40px;
+  height: 10px;
+  margin: 1px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: grey;
+  background-color: rgba(111, 3, 3, 100);
+  opacity: 0.9;
+  border: 0px solid #fff;
+  border-radius: 0px;
+}
  .navbar {
   min-height: 80px;
 }
