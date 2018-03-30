@@ -52,22 +52,28 @@
   <!-- HISTORY -->
   <div class = "col-sm-3">
   <div class = ""style="margin-left: 2%; margin-right: 2%; ">
-  <div><h3>USER IMAGE</h3></div>
-  <div><h4>NAME</h4></div>
-  <div><h4>PHONE</h4></div>
-  <div style="text-align: right;"> date </div>
+  <div><img class = "img-responsive" src="#" style="width: 30vh; height: 300px"></div>
+  <div><h4>Patient</h4></div>
+  <div><h4>9999999999</h4></div>
+  <div style=" margin-top: 10%;margin-bottom: 0%"><button type="submit" class = "buttonlogin button3" style="width: 30vh">BILLS</button></div>
+  <div style=" margin-top: 1%;margin-bottom: 0%"><button type="submit" class = "buttonlogin button3" style="width: 30vh">PRESCRIPTIONS</button></div>
+  <div style=" margin-top: 1%;margin-bottom: 0%"><button type="submit" class = "buttonlogin button3" style="width: 30vh">APPOINTMENT HISTORY</button></div>
+  <div style=" margin-top: 1%;margin-bottom: 0%"><button type="submit" class = "buttonlogin button3" style="width: 30vh">MY REVIEWS</button></div>
   </div>
   </div>
-  <div class = "col-sm-9">
-  <div class = ""style="margin-left: 2%; margin-right: 2%; ">
-  <div><h3>USER IMAGE</h3></div>
-  <div><h4>NAME</h4></div>
-  <div><h4>PHONE</h4></div>
-  <div style="text-align: right;"> date </div>
+  <div class = "col-sm-9" style="overflow: auto; max-height: 100vh;">
+  <div style="width: 100%">
+  <div class="" style="text-align: center; position: relative;"><h1 style="text-align: center">Upcoming appointments</h1></div>
+  <div class = "card card-1"style="margin-left: 0%; margin-right: 0%; ">
+  <div class = "col-sm-2"><img src=""></div>
+  <div class="col-sm-8">
+  <div style="padding-left: 0%"><h3>Doctor IMAGE</h3></div>
+  <div style="padding-left: 0%"><h4>Doctor name</h4></div>
+  <div style="padding-left: 0%"><h4>Contact</h4></div>
+  <div style="text-align: right;padding-right: 3%"> Time of Appointment </div>
   </div>
   </div>
-  
-
+  </div>
 </div>
 </div>
 </body>
