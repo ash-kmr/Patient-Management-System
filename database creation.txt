@@ -1,10 +1,12 @@
 # email_id and P_id has been added to auth_patient table
 # email_id and doctor_id has been added to auth_doctor table
 
+create database project;
+use project;
 
 
 
-create table patient (
+create table Patient (
 P_id  int primary key AUTO_INCREMENT ,
 first_name varchar(50) ,
 last_name  varchar(50) ,
@@ -14,7 +16,7 @@ phone      int
 
 );
 
-alter table patient add column email varchar(50);
+alter table Patient add column email varchar(50);
 
 create table Doctor (
 doctor_id   int  primary key AUTO_INCREMENT ,
