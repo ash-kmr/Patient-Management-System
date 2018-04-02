@@ -9,14 +9,15 @@ src: url(/Delicious-Roman.otf);
   margin-right: 0;
   margin-left: 0;
 }
-.card {
-  background: #fff;
-  border-radius: 2px;
-  display: inline-block;
-  height: wrap-content;
-  margin: 1rem;
-  position: relative;
-  width: 100%;
+.header{
+	background-color: white;
+	background: #283747;
+	margin-left: 0%; 
+	margin-right: 0%; 
+	font-size: 2em;
+	padding-top: 2%; 
+	padding-bottom: 2%;
+	border-radius: 10px;
 }
 .services-breadcrumb {
     padding: 1em 0;
