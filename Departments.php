@@ -75,7 +75,7 @@
   <div class = "card card-1">
   <div style="margin-right: 4%; margin-left: 4%; padding-top: 4%">
   <img width="100%" src="<?php  echo $row['image_url']; ?>">
-  <div style="text-align: center;"><h4><a href="#"><?php  echo $row['dept_name'];  ?></a></h4></div>
+  <div style="text-align: center;"><h4><a href="doctorlist.php?q=<?php echo $row['dept_name']; ?>"><?php  echo $row['dept_name'];  ?></a></h4></div>
   </div>
   </div>
   </div>

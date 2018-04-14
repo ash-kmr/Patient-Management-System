@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       /*Select name from result field yet to be updated*/
       $_SESSION['login_user'] = $username;
          
-      
+         
 	  header("location: welcome.php");
 	   
    }

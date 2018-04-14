@@ -1,3 +1,8 @@
+<!--
+
+Showing Reviews Query as : 
+Select first_name,last_name,image_url,Rating,text from Reviews join Patient using(P_id) where doctor_id = 1;
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,6 +95,36 @@
     <h4>username stars</h4>
     <h4>lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj</h4>
     <hr>
+  </div>
+  <div class = "container">
+    <button class="btn btn-alert" style="margin-bottom: 3%" data-toggle="modal" data-target="#myModal">Add a Review</button>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <form action = "" method="post">
+                <label> Name : </label>
+                <input type="text" name = "name" readonly><?php echo $row['first_name']."  ".$row['last_name']; ?></input>
+                <label> Date of Appointment : </label>
+                <input type="text" name = "Date" readonly><?php echo $row['Date'];?></input>
+                <label> Time of Appointment : </label>
+                <input type="text" name = "time" readonly><?php echo $row['time_start']; ?></input>
+                <label> Reason Description : </label>
+                <textarea class = 'form-control' rows="10" cols="50">Enter Your Text Here ...</textarea>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-alert btn-simple" name="Submit">Confirm</button>
+              </div>
+                <!--<button class="btn btn-alert" style="margin-bottom: 3%" name="Submit">Confirm</button>-->
+                </form>
+              </div>  
+            </div>
+          </div>
+        </div>
   </div>
   <!-- end -->
 </body>
