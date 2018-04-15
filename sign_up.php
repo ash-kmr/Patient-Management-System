@@ -45,6 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 						$P_id_1 = mysqli_query($conn, $p_id);
 						$row1 = mysqli_fetch_assoc($P_id_1);
 						$p = $row1["P_id"];	  
+						$Password = md5($Password);
 						$auth_p = "insert into auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$p."')";
 						$auth_p_1 = mysqli_query($conn, $auth_p);
 

@@ -18,6 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 				if(isset($_POST['user']) && !isset($_POST['doctor']))
 					{
 					 
+					 $password = md5($password);
                       $sql = "select P_id , count(*) as total from auth_patient where email = '".$username."' and password = '".$password."' ";
 					  $result = $conn->query($sql);
 					  $row = $result->fetch_assoc();
