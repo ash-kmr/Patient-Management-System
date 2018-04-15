@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>nearby hospital</title>
-  <style type="text/css">
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-    }
-
-    #map {
-      height: 500px;
-      margin: 10px auto;
-      width: 800px;
-    }
-  </style>
-  <script type="text/javascript">
-                var map;
+            var map;
 
             function initMap() {
               if (navigator.geolocation) {
@@ -73,27 +55,23 @@
               var placesList = document.getElementById('places');
 
               for (var i = 0, place; place = places[i]; i++) {
+                var image = {
+                  url: place.icon,
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(25, 25)
+                };
 
                 var marker = new google.maps.Marker({
                   map: map,
+                  icon: image,
                   title: place.name,
                   animation: google.maps.Animation.DROP,
                   position: place.geometry.location
-                });
-
-                google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.setContent(place.name + "<br />" + place.formatted_address +"<br />" + place.website + "<br />" + place.rating + "<br />" + place.formatted_phone_number);
-                  infowindow.open(map, this);
                 });
 
                 bounds.extend(place.geometry.location);
               }
               map.fitBounds(bounds);
             }
-  </script>
-</head>
-<body>
-<div id="map"></div>
-<script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDsnwEBXytszp6-3uz7YEJjmCD01h1xZFg &signed_in=true&libraries=places&callback=initMap" async defer></script>
-</body>
-</html>
