@@ -2,6 +2,13 @@
 font-family: DeliciousRoman;
 src: url(/Delicious-Roman.otf);
 }
+
+#map {
+  height: 500px;
+  margin: 10px auto;
+  width: 800px;
+}
+
 iframe {
   margin-top: 20px;
   margin-bottom: 30px;
