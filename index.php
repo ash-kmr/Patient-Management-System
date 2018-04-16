@@ -37,8 +37,13 @@
         -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <?php if(isset($_SESSION['login_user'])){ ?>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php   echo $_SESSION['login_user']; ?></a></li>
+        <li><a href="login-signup/php/logout.php"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+        <?php  } else {?>
+        <li><a href="login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <?php  } ?>
       </ul>
     </div>
   </div>
@@ -69,23 +74,23 @@
       <div class="item active">
         <img src="images/banner.jpg" alt="Los Angeles" style="width:100%;">
         <div class="carousel-caption">
-          <h3 style = "font-size:4em">Los Angeles</h3>
-          <p style = "font-size:2em">LA is always so much fun!</p>
+          <h3 style = "font-size:4em">TEMP</h3>
+          <p style = "font-size:2em">TEMP</p>
         </div>
       </div>
       <div class="item">
         <img src="images/banner1.jpg" alt="Chicago" style="width:100%;">
         <div class="carousel-caption">
-          <h3 style = "font-size:4em">Los Angeles</h3>
-          <p style = "font-size:2em">LA is always so much fun!</p>
+          <h3 style = "font-size:4em">TEMP</h3>
+          <p style = "font-size:2em">TEMP</p>
         </div>
       </div>
     
       <div class="item">
         <img src="images/banner2.jpg" alt="New York" style="width:100%;">
         <div class="carousel-caption">
-          <h3 style = "font-size:4em">Los Angeles</h3>
-          <p style = "font-size:2em">LA is always so much fun!</p>
+          <h3 style = "font-size:4em">TEMP</h3>
+          <p style = "font-size:2em">TEMP</p>
         </div>
       </div>
   
@@ -131,7 +136,7 @@
       <h2 class="w3_heade_tittle_agile">Find a hospital nearby</h2>
       <p class="sub_t_agileits">New in the city? We're glad to help</p>
       </div>
-      <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white">GO</button></div>
+      <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white"><a href="nearbyhospital.html">GO</a></button></div>
 </div>
 <br><br><br><br>
 

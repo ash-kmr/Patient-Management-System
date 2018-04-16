@@ -10,14 +10,13 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="css/JiSlider.css">
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Autour One' rel='stylesheet'>
-  <script src = "js/jquery.min.js"></script>
+  <script src = "../js/jquery.min.js"></script>
 </head>
 <body>
 <div class = "mynav">
@@ -33,27 +32,21 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
+        <li><a href="../index.php">Home</a></li>
+        <li><a href="../Departments.php">Departments</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="../login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="../login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
       </div>
       </div>
       </nav>
- <div class="banner1 jarallax">
-		<div class="container">
-		</div>
-	</div>
 
-<div class="services-breadcrumb" style="padding-top: 1%">
+<div class="services-breadcrumb" style="padding-top: 5%">
 		<div class="container">
 			<ul>
-				<li><a href="index.html" style="font-family: Balthazar; font-size: 1.4em">Home</a><i>|</i></li>
+				<li><a href="../index.php" style="font-family: Balthazar; font-size: 1.4em">Home</a><i>|</i></li>
 				<li style="font-family: Balthazar; font-size: 1.4em">Departments</li>
 			</ul>
 		</div>
@@ -63,7 +56,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   <div class = "container">
   <!-- dep name card -->
   <div class = "col-sm-3">
-  <img class = "img-rounded img-responsive img-raised" src="images/doc.jpg"></div>
+  <img class = "img-rounded img-responsive img-raised" src="../Images/images/doc.jpg"></div>
   <div class = "col-sm-9"><h3>Doctor Name</h3></div>
   <div class = "col-sm-9"><h3>Doctor BIO:</h3></div>
   <div class = "col-sm-9"><h3>Doctor Education:</h3></div>
@@ -114,7 +107,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 <label> Time of Appointment : </label>
                 <input type="text" name = "time" readonly><?php echo $row['time_start']; ?></input>
                 <label> Reason Description : </label>
-                <textarea class = 'form-control' rows="10" cols="50">Enter Your Text Here ...</textarea>
+                <textarea class = 'form-control' rows="10" cols="50">Enter Your Text Here...</textarea>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-alert btn-simple" name="Submit">Confirm</button>

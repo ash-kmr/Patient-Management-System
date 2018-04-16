@@ -75,10 +75,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <head>
-	    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<link rel="stylesheet" href="CSS-login_sign_up/login.css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+	    <link href="../../assets/css/material-kit.css" rel="stylesheet"/>
+		<link href="../../assets/css/demo.css" rel="stylesheet" />
+		<script src="../../assets/js/core/jquery.min.js"></script>
+		<script src="../../assets/js/core/popper.min.js"></script>
+		<script src="../../assets/js/bootstrap-material-design.js"></script>
+		<script src="../../assets/js/plugins/moment.min.js"></script>
+		<script src="../../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+		<script src="../../assets/js/plugins/nouislider.min.js"></script>
+		<script src="../../assets/js/material-kit.js?v=2.0.0"></script>
 	</head>
 	  
 	 <body>

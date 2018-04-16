@@ -27,25 +27,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="css/JiSlider.css">
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
-  <script src = "js/JiSlider.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Autour One' rel='stylesheet'>
-  <script src = "js/jquery.min.js"></script>
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
-  <link href="assets/css/demo.css" rel="stylesheet" />
-  <script src="/assets/js/core/jquery.min.js"></script>
-<script src="/assets/js/core/popper.min.js"></script>
-<script src="/assets/js/bootstrap-material-design.js"></script>
-<script src="/assets/js/plugins/moment.min.js"></script>
-<script src="/assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-<script src="/assets/js/plugins/nouislider.min.js"></script>
-<script src="/assets/js/material-kit.js?v=2.0.0"></script>
+  <script src = "../js/jquery.min.js"></script>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/material-kit.css" rel="stylesheet"/>
+  <link href="../assets/css/demo.css" rel="stylesheet" />
+  <script src="../assets/js/core/jquery.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/bootstrap-material-design.js"></script>
+<script src="../assets/js/plugins/moment.min.js"></script>
+<script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script src="../assets/js/plugins/nouislider.min.js"></script>
+<script src="../assets/js/material-kit.js?v=2.0.0"></script>
   <link rel="stylesheet" href="BS4/assets/css/material-kit.css">
   <style>
     body{
@@ -67,14 +65,12 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3</a></li>
+        <li><a href="../index.php">Home</a></li>
+        <li><a href="../Departments.php">Departments</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
       </div>
       </div>
