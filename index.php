@@ -72,14 +72,14 @@
     <div class="carousel-inner">
 
       <div class="item active">
-        <img src="images/banner.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="Images/images/banner.jpg" alt="Los Angeles" style="width:100%;">
         <div class="carousel-caption">
           <h3 style = "font-size:4em">TEMP</h3>
           <p style = "font-size:2em">TEMP</p>
         </div>
       </div>
       <div class="item">
-        <img src="images/banner1.jpg" alt="Chicago" style="width:100%;">
+        <img src="Images/images/banner1.jpg" alt="Chicago" style="width:100%;">
         <div class="carousel-caption">
           <h3 style = "font-size:4em">TEMP</h3>
           <p style = "font-size:2em">TEMP</p>
@@ -87,7 +87,7 @@
       </div>
     
       <div class="item">
-        <img src="images/banner2.jpg" alt="New York" style="width:100%;">
+        <img src="Images/images/banner2.jpg" alt="New York" style="width:100%;">
         <div class="carousel-caption">
           <h3 style = "font-size:4em">TEMP</h3>
           <p style = "font-size:2em">TEMP</p>
@@ -115,20 +115,20 @@
 </div>
 <div class="container">
   <div class = "col-sm-6" style="padding-top:3%;text-align: justify; "><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p></div>
-  <div class="col-sm-6" style="text-align:center;padding-right: 0%; padding-top: 3%"><img src="images/about.jpg" width="80%"></div>
+  <div class="col-sm-6" style="text-align:center;padding-right: 0%; padding-top: 3%"><img src="Images/images/about.jpg" width="80%"></div>
 </div>
 <div class = "container-fluid" style="padding-top: 3%">
   <div class = "col-sm-3">
-    <img class = "img-responsive" src="images/g1.jpg">
+    <img class = "img-responsive" src="Images/images/g1.jpg">
   </div>
   <div class = "col-sm-3">
-    <img class = "img-responsive" src="images/g2.jpg">
+    <img class = "img-responsive" src="Images/images/g2.jpg">
   </div>
   <div class = "col-sm-3">
-    <img class = "img-responsive" src="images/g3.jpg">
+    <img class = "img-responsive" src="Images/images/g3.jpg">
   </div>
   <div class = "col-sm-3">
-    <img class = "img-responsive" src="images/g4.jpg">
+    <img class = "img-responsive" src="Images/images/g4.jpg">
   </div>
 </div>
 <div class = "container" style="padding-top: 3%;">
