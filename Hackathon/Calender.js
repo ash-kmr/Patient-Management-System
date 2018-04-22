@@ -36,9 +36,14 @@ function showDates(MonthName,Year){
                 html += "<li>"+"<button style='border: none;background: inherit;cursor:pointer;color:inherit' onclick='getTimeSlot(this)'>"+(i-week+1)+"</button>"+"</li>";
         
         /*Fills Out Remaining Entries*/        
-        for(i=7-week+2;i<=daysInMonth(monthNo,Year);i++)
-                html += "<li>"+"<button style='border: none;background: inherit;cursor:pointer;color:inherit' onclick='getTimeSlot(this)'>"+i+"</button>"+"</li>";
-        
+        for(i=7-week+2;i<=daysInMonth(monthNo,Year);i++){
+                if(i==23){
+                        html += "<li>"+"<button style='border: none;background: inherit;cursor:pointer;color:inherit' class='back' onclick='getTimeSlot(this)'>"+i+"</button>"+"</li>";
+                }
+                else{
+                        html += "<li>"+"<button style='border: none;background: inherit;cursor:pointer;color:inherit' onclick='getTimeSlot(this)'>"+i+"</button>"+"</li>";}
+                
+        }
         demo.innerHTML = html;
             
 }
@@ -100,16 +105,48 @@ function getPrev(){
 /*Get JSON data from php and extract SESSION variables*/
 function getTimeSlot(x){
 
-        var MonthName = document.getElementById("monthName").innerHTML;
+        var ele = document.getElementsByClassName("back");
+        var part = ele[0];
+        part.classList.remove("back");
+        x.className = "back";
+        
+        document.getElementById("Date").innerHTML = x.innerHTML;
+
+        var MonthName = (document.getElementById("monthName").innerHTML).toString();
+        //var c = MonthName.charAt(0);
         var Year      = document.getElementById("Year").innerHTML;
         var date      = x.innerHTML; 
-        var query     = MonthName+" "+date+" "+Year;
-        /*
+        
+        var dummy = MonthName.trim();
+        //var dummy = "March";
+        var MonthNumber = Months.indexOf(dummy) + 1;
+        
+        var query     = Year+"-"+MonthNumber+"-"+date;
+        var url = "";
+        
         $(document).ready(function(){
         
-                var url = "getTime.php?q="+query;
+                url = "getTime.php?q="+query;
+                
+                $.getJSON(url,function(json){
+                
+                        //alert(json);
+                        var html = "";
+                        
+                        
+                                  var keys = Object.keys(json);
+                                  html += "<div>";
+                                  keys.forEach(function(key) {
+                                    html += "<button id = '" + key + "'>" + json[key] + "</button><br>";
+                                  });
+                                  html += "</div><br>";
+                      
+                       
+                       $("#demo").html(html);
+                
+                });
         
-        });*/
-        document.getElementById("demo").innerHTML = query;
+        });
+        //document.getElementById("demo").innerHTML = dummy;
 
 }
