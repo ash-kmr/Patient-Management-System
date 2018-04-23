@@ -8,8 +8,8 @@ if(isset($_SESSION['user'])){
   <?include("msgs.php");?>
  </div>
  <form id="msg_form">
-  <input name="msg" size="30" type="text"/>
-  <button>Send</button>
+  <input class="form-control" name="msg" size="30" type="text"/>
+  <button class = "btn btn-info">Send</button>
  </form>
 <?
 }
