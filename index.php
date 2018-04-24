@@ -1,3 +1,111 @@
+<?php
+
+        /*Connection =.php will be included in inncludes folder*/
+        include("includes/connection.php");
+
+        session_start();
+
+
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        
+                if($_POST['Login']){
+        
+        
+                        $username = $conn->escape_string($_POST['Email']);
+			$password = $conn->escape_string($_POST['Password']);
+			
+			$password = md5($password);
+                
+                        if(isset($_POST['user'])){
+                        
+                                $sql = "select * from Auth_patient where email = '".$username."' and password = '".$password."'"; 
+                                $result = $conn->query($sql);
+                                if($result){
+                                
+                                        $row  = $result->fetch_assoc();
+                                        
+                                        $_SESSION['login_user'] = $username;
+                                        $_SESSION['ID'] = $row['P_id'];
+                                        $_SESSION['Identification'] = 0;
+                                        header('Location : '.$_SERVER['REQUEST_URI']);
+                                
+                                }else{
+                        
+                                        //echo '<script>init();</script>';
+                                        $error = "Invalid Username or Password";
+                        
+                                }
+                        }else if(isset($_POST['doctor'])){
+                        
+                        
+                                $sql = "select * from Auth_doctor where email = '".$username."' and password = '".$password."'";
+                                $result = $conn->query($sql);
+                                if($result){
+                        
+                                        $row = $result->fetch_assoc();
+                                        $_SESSION['login_user'] = $username;
+                                        $_SESSION['ID'] = $row['doctor_id'];
+                                        $_SESSION['Identification'] = 1;
+                                        header('Location : doctorbook.php');
+                        
+                                }else{
+                                
+                                
+                                        $error = "Invalid UserName or Password";
+                                
+                                }
+                        }else{
+                        
+                        
+                                $error = "Select atleast 1 Option";
+                        
+                        }
+                
+                }else{
+                
+                        
+                        $First_Name = $conn->escape_string($_POST['First_Name']);
+                        $Last_Name = $conn->escape_string($_POST['Last_Name']);
+                        $Email = $conn->escape_string($_POST['Email']);
+			$Password = $conn->escape_string($_POST['Password']);
+                        $Mobile_no = $conn->escape_string($_POST['mobile_no']);
+                        $Address = $conn->escape_string($_POST['address']);
+                
+                        $sql = "insert into Patient(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
+                        
+                        if ($conn->query($sql)){
+                                //echo '<script>alert("Hello")</script>';
+                        
+                                $Password = md5($Password);
+                                $Patient = "select P_id from Patient where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
+                        
+                                $result = $conn->query($Patient);
+                                if($result){
+                                        //echo '<script>alert("Hello")</script>';
+                                        $row = $result->fetch_assoc();
+                                        $P_id = $row['P_id'];
+                                        $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
+                                        if($conn->query($auth_p)){
+                                        
+                                                //echo '<script>alert("Hello")</script>';
+                                                
+                                                $_SESSION['login_user'] = $First_Name;
+                                                $_SESSION['ID'] = $P_id;
+                                                $_SESSION['Identification'] = 0;
+                                               
+                                                header('Location: '.$_SERVER['REQUEST_URI']);
+                                        
+                                        
+                                        }                                
+                                }
+                        
+                        }
+                
+                }
+        }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,14 +146,30 @@
         -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-      <?php if(isset($_SESSION['login_user'])){ ?>
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span> <?php   echo $_SESSION['login_user']; ?></a></li>
-        <li><a href="login-signup/php/logout.php"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
-        <?php  } else {?>
+      
+      <?php if(isset($_SESSION['ID'])){ ?>
         <li><button type="button" class="btn btn-default btn-default2" data-toggle= "modal" data-target = "#mymodal" style="margin-top: 25%">Login</button></li>
-        <li><a href="login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <?php  } ?>
+        <?php }else {?>
+                <?php if($_SESSION['Identification'] == 1) {?> <li><button type="button" class="btn btn-default btn-default2" onclick = "doctor_page()" style="margin-top: 25%"><?php echo $_SESSION['login_user']; ?></button></li><?php}else{ ?>
+                <li><button type="button" class="btn btn-default btn-default2" onclick = "user_page()" style="margin-top: 25%"><?php echo $_SESSION['login_user']; ?></button></li><?php } ?>
+                <?php } ?>
       </ul>
+      
+      <script>
+      
+        function doctor_page(){
+        
+                window.location.href = "doctors/doctor.html";
+ 
+        }
+        
+        function user_page(){
+        
+                window.location.href = "user/user.php";
+ 
+        
+        }
+      </script>
     </div>
   </div>
 </nav> 
@@ -64,21 +188,21 @@
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="/" method="post">
+          <form action="" method="post">
           
           <div class="top-row">
             <div class="field-wrap">
               <label>
                 First Name<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name = "First_Name"required autocomplete="off" />
             </div>
         
             <div class="field-wrap">
               <label>
                 Last Name<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name = "Last_Name"required autocomplete="off"/>
             </div>
           </div>
 
@@ -86,44 +210,91 @@
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email" name = "Email"required autocomplete="off"/>
           </div>
+          
+          <div class="field-wrap">
+            <label>
+              Mobile<span class="req">*</span>
+            </label>
+            <input type="number" name="mobile_no"  class="form-control input-lg" placeholder="Mobile No" tabindex="3"  required autocomplete="off"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Address<span class="req">*</span>
+            </label>
+                <input type="text" name="address"  class="form-control input-lg" placeholder="Residential Address" tabindex="3" autocomplete="off"/>
+          </div>
+          
           
           <div class="field-wrap">
             <label>
               Set A Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" id = "password" name="Password"required autocomplete="off"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Confirm Password<span class="req">*</span>
+            </label>
+            <input type="password" id = "confirm_password" name="Pass"required autocomplete="off"/>
+            <span id="message"></span>
+            
+            
           </div>
           
-          <button type="submit" class="button button-block"/>Get Started</button>
+          <input type="submit" id = "buttonActivate" name = "Sign Up" class="button button-block"/>Sign Up
+          <script>
+          $('#password, #confirm_password').on('keyup', function () {
+                if ($('#password').val() == $('#confirm_password').val()) {
+                        $('#message').html('Matching').css('color', 'green');
+                        $("#buttonActivate").prop("disabled", false);
+                } else {
+                        $('#message').html('Not Matching').css('color', 'red');
+                        $("#buttonActivate").prop("disabled", true);
+                }
+         });
           
+          
+          </script>
           </form>
 
         </div>
         
         <div id="login">   
           <h1>Welcome Back!</h1>
-          
-          <form action="/" method="post">
+          <div id = "invalid" style="text-align : center; opacity: 0;color : red"><h4>INVALID USERNAME/PASSWORD</h4></div>
+          <form action="" method="post">
           
             <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email" name = "Email" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" name = "Password"required autocomplete="off"/>
           </div>
-          
+          <div id="remember" class="checkbox">
+                <label>
+		        <input type="checkbox" value="Patient" name="user" value="1"> Patient</br>
+			<input type="checkbox" value="doctor" name="doctor" value ="2"> Doctor</br>
+			<script>
+			
+			        $('input[type="checkbox"]').on('change', function() {
+                                        $('input[type="checkbox"]').not(this).prop('checked', false);
+                                });
+                                
+			</script>
+		</label>
+	</div>
           <p class="forgot"><a href="#">Forgot Password?</a></p>
           
-          <button class="button button-block"/>Log In</button>
+          <input type="submit" name = "Login"  value = "Log In" class="button button-block"/>
           
           </form>
 
@@ -229,6 +400,10 @@
       <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white"><a href="nearbyhospital.html">GO</a></button></div>
 </div>
 <br><br><br><br>
-
+<script>
+function init(){
+        document.getElementById("invalid").style.opacity = "1";
+}
+</script>
 </body>
 </html>
