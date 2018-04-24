@@ -3,11 +3,12 @@
         include 'includes/Connection.php';
         
         $username = $_SESSION['login_user'];
+        $P_id = $_SESSION['ID'];
         /*
         $sql = "select * from (Patient as p join (Patient_Doctor as pd join Doctor as d using(doctor_id)) using(P_id)),Appointments as a where a.P_id = p.p_id and a.doctor_id = d.doctor_id and p.email = '$username' and a.time >= 'now()'";
         */
         
-        $sql = "select * from Patient where email = '$username'";
+        $sql = "select * from Patient where P_id = '$P_id'";
         $result = $conn->query($sql);
         
         if($result && $result->num_rows>0){

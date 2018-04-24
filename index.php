@@ -19,13 +19,13 @@
                 
                         if(isset($_POST['user'])){
                         
-                                $sql = "select * from Auth_patient where email = '".$username."' and password = '".$password."'"; 
+                                $sql = "select * from Auth_patient join Patient using(P_id) where email = '".$username."' and password = '".$password."'"; 
                                 $result = $conn->query($sql);
                                 if($result){
                                 
                                         $row  = $result->fetch_assoc();
                                         
-                                        $_SESSION['login_user'] = $username;
+                                        $_SESSION['login_user'] = $row['first_name'];
                                         $_SESSION['ID'] = $row['P_id'];
                                         $_SESSION['Identification'] = 0;
                                         header('Location : '.$_SERVER['REQUEST_URI']);
@@ -44,7 +44,7 @@
                                 if($result){
                         
                                         $row = $result->fetch_assoc();
-                                        $_SESSION['login_user'] = $username;
+                                        //$_SESSION['login_user'] = $username;
                                         $_SESSION['ID'] = $row['doctor_id'];
                                         $_SESSION['Identification'] = 1;
                                         header('Location : doctorbook.php');
