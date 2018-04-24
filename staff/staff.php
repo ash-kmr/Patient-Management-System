@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../css/style.css">
-  <link rel="stylesheet" type="text/css" href="../css/login.css">
   <link rel="stylesheet" type="text/css" href="../css/navbar.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
@@ -24,7 +23,9 @@
 <script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
 <script src="../assets/js/plugins/nouislider.min.js"></script>
 <script src="../assets/js/material-kit.js?v=2.0.0"></script>
+<script type="text/javascript" src = "../js/login.js"></script>
   <link rel="stylesheet" href="BS4/assets/css/material-kit.css">
+  <link rel="stylesheet" type="text/css" href="../css/login.css">
   <style>
     body{
       background-color:#E5E7E9;
@@ -56,7 +57,7 @@
       </div>
       </nav>
 </div>
-<div class = "container" style="margin-top: 10%">
+<div class = "container" style="margin-top: 8%">
   <div class="form">
     <div id="signup">   
       <form action="" method="post">
@@ -92,13 +93,22 @@
         <label>
           Datetime<span class="req">*</span>
         </label>
-        <input type="datetime" id = "datetimes" name="Pass"required autocomplete="off"/>
+        <input type="datetime" id = "datetime" name="Pass"required autocomplete="off"/>
         <span id="message"></span>
         
         
       </div>
       
-      <input type="submit" id = "buttonActivate" name = "Sign Up" class="button button-block"/>Sign Up
+      <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
       </form>
 </div>
+</div>
+</div>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+  
+
+    <script  src="../js/login.js"></script>
+
+</body>
+</html>
