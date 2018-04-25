@@ -25,10 +25,10 @@
                                 
                                         $row  = $result->fetch_assoc();
                                         
-                                        $_SESSION['login_user'] = $row['first_name'];
+                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
                                         $_SESSION['ID'] = $row['P_id'];
                                         $_SESSION['Identification'] = 0;
-                                        header('Location : '.$_SERVER['REQUEST_URI']);
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
                                 
                                 }else{
                         
@@ -39,15 +39,15 @@
                         }else if(isset($_POST['doctor'])){
                         
                         
-                                $sql = "select * from Auth_doctor where email = '".$username."' and password = '".$password."'";
+                                $sql = "select * from Auth_doctor join Doctor using(doctor_id) where email = '".$username."' and password = '".$password."'";
                                 $result = $conn->query($sql);
                                 if($result){
                         
                                         $row = $result->fetch_assoc();
-                                        //$_SESSION['login_user'] = $username;
+                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
                                         $_SESSION['ID'] = $row['doctor_id'];
                                         $_SESSION['Identification'] = 1;
-                                        header('Location : doctorbook.php');
+                                        header('Location: doctorbook.php');
                         
                                 }else{
                                 
@@ -147,7 +147,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
-      <?php if(isset($_SESSION['ID'])){ ?>
+      <?php if(!(isset($_SESSION['ID']))){ ?>
         <li><button type="button" class="btn btn-default btn-default2" data-toggle= "modal" data-target = "#mymodal" style="margin-top: 25%">Login</button></li>
         <?php }else {?>
                 <?php if($_SESSION['Identification'] == 1) {?> <li><button type="button" class="btn btn-default btn-default2" onclick = "doctor_page()" style="margin-top: 25%"><?php echo $_SESSION['login_user']; ?></button></li><?php}else{ ?>

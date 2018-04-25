@@ -6,7 +6,7 @@
         
                 $P_id = $_GET['q'];
                 /*Update Query For Appointments*/
-                $sql = "select d.first_name as first_name,d.last_name as last_name,a.Date as Date,s.time_start as time_start,d.image_url as image_url from Doctor as d join (Appointments as a join slots as s using(slot_id)) using(doctor_id) where a.P_id = '$P_id' and a.Time >= now()";
+                $sql = "select d.first_name as first_name,d.last_name as last_name,a.Date as Date,s.time_start as time_start,d.image_url as image_url from Doctor as d join (Appointments as a join slots as s using(slot_id)) using(doctor_id) where a.P_id = '$P_id' and a.Date >= now()";
                 
                 $result = $conn->query($sql);
                 /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
@@ -24,7 +24,7 @@
                         $doc_id = explode(" ",$_POST['name']);
                         $first_name = $doc_id[0];
                         $last_name = $doc_id[1];
-                        $sql1 = "select doctor_id from Doctor where first_name=".$first_name." and last_name = ".$last_name;
+                        $sql1 = "select doctor_id from Doctor where first_name = '".$first_name."' and last_name = '".$last_name."'";
                         $result1 = $conn->query($sql1);
                         $row1 = "":
                         if($result1){
@@ -36,7 +36,7 @@
                         $doctor_id = $row1['doctor_id'];
                         $Date = $_POST['Date'];
                         $Time = $_POST['time'];
-                        $sql2 = "select slot_id from slots where time_start = ".$Time;
+                        $sql2 = "select slot_id from slots where time_start = '".$Time."'";
                         
                         $result2 = $conn->query($sql2);
                         $row2 = "";
@@ -47,7 +47,7 @@
                         }
                         
                         $slot_id = $row2['slot_id'];
-                        $sql = "delete from Appointments where doctor_id = ".$doctor_id." and Date = ".$Date." and slot_id = ".$slot_id;
+                        $sql = "delete from Appointments where doctor_id = '".$doctor_id."' and Date = '".$Date."' and slot_id = '".$slot_id."'";
                         if($conn->query($sql) == TRUE){
                                 echo "Successfully Deleted Appointment";
                                 $page = $_SERVER['PHP_SELF'];

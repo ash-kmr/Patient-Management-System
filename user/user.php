@@ -70,8 +70,8 @@
         <li><a href="../Departments.php">Departments</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="../logout.php"><span class="glyphicon glyphicon-user"></span> LogOut</a></li>
+        
       </ul>
       </div>
       </div>
@@ -87,16 +87,16 @@
   <div class="card-body">
     <h4 class="card-title">Card title</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary" style="width: 45%;margin-left:4%" onclick = "changeIframe(Appointments.php?q=<?php  echo $row['P_id']; ?>)">Appointments</a>
-    <a href="#" class="btn btn-primary" style="width: 45%" onclick = "changeIframe(Bills.php?q=<?php  echo $row['P_id']; ?>)">Bills</a>
-    <a href="#" class="btn btn-primary" style="width: 45%;margin-left:4%" onclick = "changeIframe(Records.php?q=<?php  echo $row['P_id']; ?>)">Previous Record</a>
-    <a href="#" class="btn btn-primary" style="width: 45%" onclick = "changeIframe(Review.php?q=<?php  echo $row['P_id']; ?>)">Reviews</a>
+    <a href="userappointments.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Appointments</a>
+    <a href="Bills.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Bills</a>
+    <a href="Records.php?q=<?php  echo $row['P_id']; ?>" target ="frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Previous Record</a>
+    <a href="Review.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Reviews</a>
   </div>
   
 </div>
   </div>
   <div class = "col-sm-9" style="overflow: auto; max-height: 100vh;">
-  <iframe src="usersource.html" width="100%" height="500px" frameborder="0" id="frame"></iframe></div>
+  <iframe src="usersource.html" width="100%" height="500px" frameborder="0" id="frame" name="frame"></iframe></div>
   <script>
   
         function changeIframe(x){
