@@ -27,6 +27,9 @@
   <script src = "js/jquery.min.js"></script>
 </head>
 <body>
+<<<<<<< HEAD
+<? include("mainheader.php")?>
+=======
 <div class = "mynav">
 	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
   <div class="container-fluid">
@@ -50,6 +53,7 @@
       </div>
       </div>
       </nav>
+>>>>>>> e0d54c72903c3538582d86c0012a7ab43a982138
  <div class="banner1 jarallax">
 		<div class="container">
 		</div>
