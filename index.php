@@ -279,10 +279,14 @@
             </label>
             <input type="password" name = "Password"required autocomplete="off"/>
           </div>
-          <div id="remember" class="checkbox">
-                <label>
-		        <input type="checkbox" value="Patient" name="user" value="1"> Patient</br>
-			<input type="checkbox" value="doctor" name="doctor" value ="2"> Doctor</br>
+          <div id="remember" class=" field-wrap">
+          <div class="container-fluid"></div>
+          <div class = "col-sm-6">
+          <label style="margin-left: 12%;">Patient</label>
+            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="user" value="1"><br></div>
+            <div class = "col-sm-6">
+            <label style="margin-left: 12%">Doctor</label>
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="doctor" value ="2"></div>
 			<script>
 			
 			        $('input[type="checkbox"]').on('change', function() {
