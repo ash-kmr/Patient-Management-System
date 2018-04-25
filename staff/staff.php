@@ -1,22 +1,3 @@
-<?php
-
-        include 'includes/connection.php';
-        
-        session_start();
-        
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-                $P_id = $conn->escape_string($_POST['pid']);
-                $Reason = $conn->escape_string($_POST['reason']);        
-                $Amount = $conn->escape_string($_POST['amount']);
-                $GST = $conn->escape_string($_POST['Password']);
-                //$Date = $conn->escape_string($_POST['pass']);
-                
-                $update = "insert into Bills_Details(P_id,Reason,Amount,GST,Date) values ('".$P_id."','".$Reason."','".$Amount."','".$GST."','now()')";
-        
-        }
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -108,8 +89,6 @@
         </label>
         <input type="text" id = "gst" name="Password"required autocomplete="off"/>
       </div>
-      
-      <!--
       <div class="field-wrap">
         <label>
           Datetime<span class="req">*</span>
@@ -119,7 +98,7 @@
         
         
       </div>
-      -->
+      
       <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
       </form>
 </div>
