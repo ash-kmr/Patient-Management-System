@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="css/login.css">
   <script type="text/javascript" src = "js/login.js"></script>
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/banner.css">
 </head>
 <body>
 <div class = "mynav">

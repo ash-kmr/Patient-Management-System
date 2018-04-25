@@ -17,7 +17,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<? include("mainheader.php") ?>
+<?php include("mainheader.php") ?>
  <div class="banner1 jarallax">
 		<div class="container">
 		</div>
