@@ -1,4 +1,22 @@
--->
+<?php
+
+        include '../includes/Connection.php';
+        
+        if(isset($_GET['q']) {
+        
+                $P_id = $_GET['q'];
+                /*Update Query For Appointments*/
+                $sql = "select first_name, last_name, address, phone from Patient where P_id = '$P_id'";
+                
+                $result = $conn->query($sql);
+                /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
+                
+                /*SELECT slot_id,time_start,time_end from slots where slot_id not in (
+    select slot_id from Appointments where doctor_id = 3 and Date='2018-04-11' 
+    UNION
+	select slot_id from unavailable where doctor_id = 3 and Date = '2018-04-11');  for Available slots*/               
+        }
+?>
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -69,19 +87,19 @@
 		<form>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" value = <?php echo $result['first_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Last Name</label>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" value = <?php echo $result['last_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Address</label>
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" value = <?php echo $result['address'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Phone Number</label>
-				<input type="number" class="form-control">
+				<input type="number" class="form-control" <?php echo $result['phone'] ?> >
 			</div>
 			<button class="btn btn-info">Save changes</button>
 		</form>
