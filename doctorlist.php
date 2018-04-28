@@ -1,7 +1,10 @@
 <?php
-        include '../includes/connection.php';
+        include 'includes/connection.php';
         
         //session_start();
+        session_start();
+
+        $_SESSION['url'] = $_SERVER['REQUEST_URI'];
         
         if(isset($_GET['q'])){
         
@@ -19,7 +22,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include "../mainheader.php"; ?>
+<?php include "mainheader.php"; ?>
  <div class="banner1 jarallax">
 		<div class="container">
 		</div>
@@ -42,7 +45,7 @@
   <div class="col-sm-3">
   <div class = "card card-1">
   <div style="margin-right: 4%; margin-left: 4%; padding-top: 4%">
-  <img width="100%" src="<?php if($row['image_url'] == null) echo '../Images/images/doc.jpg'; else echo $row['image_url'];?>">
+  <img width="100%" src="<?php if($row['image_url'] == null) echo 'Images/images/doc.jpg'; else echo $row['image_url'];?>">
   <div style="text-align: center;"><h4><a href="doctorbook.html?q=<?php echo $row['doctor_id']?>"><?php  echo $row['first_name']." ".$row['last_name'];  ?></a></h4></div>
   </div>
   </div>

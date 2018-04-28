@@ -9,20 +9,22 @@
         if($_SERVER["REQUEST_METHOD"] == "POST"){
         
         
-                if($_POST['Login']){
+                if(isset($_POST['Login'])){
         
         
                         $username = $conn->escape_string($_POST['Email']);
 			$password = $conn->escape_string($_POST['Password']);
 			
 			$password = md5($password);
-                
+                        //echo '<script>alert("Hello")</script>';
                         if(isset($_POST['user'])){
                         
-                                $sql = "select * from Auth_patient join Patient using(P_id) where email = '".$username."' and password = '".$password."'"; 
+                                //echo '<script>alert("Hello_User")</script>';
+                                $sql = "select * from Auth_patient join Patient using(P_id) where Auth_patient.email = '".$username."' and password = '".$password."'"; 
                                 $result = $conn->query($sql);
                                 if($result){
                                 
+                                        echo '<script>alert("Hello")</script>';
                                         $row  = $result->fetch_assoc();
                                         
                                         $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
@@ -82,7 +84,7 @@
                         
                                 $result = $conn->query($Patient);
                                 if($result){
-                                        //echo '<script>alert("Hello")</script>';
+                                        
                                         $row = $result->fetch_assoc();
                                         $P_id = $row['P_id'];
                                         $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
@@ -93,7 +95,7 @@
                                                 $_SESSION['login_user'] = $First_Name;
                                                 $_SESSION['ID'] = $P_id;
                                                 $_SESSION['Identification'] = 0;
-                                               
+                                               echo '<script>alert("Hello");</script>';
                                                 header('Location: '.$_SERVER['REQUEST_URI']);
                                         
                                         
@@ -147,12 +149,21 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       
-      <?php if(!(isset($_SESSION['ID']))){ ?>
+     <?php if(isset($_SESSION['ID'])){?>
+     
+        <?php   if($_SESSION['Identification'] == 0){ ?>
+        <li><button type="button" onclick = "user_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
+        
+        <?php } else { ?>
+        
+         <li><button type="button" onclick = "doctor_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
+        
+        <?php  } ?>
+        
+        <li><button type="button" onclick = "logout_page()" class="btn btn-default btn-default2" data-toggle= "modal" data-target = "#mymodal" style="margin-top: 25%">Logout</button></li>
+     <?php } else{  ?>
         <li><button type="button" class="btn btn-default btn-default2" data-toggle= "modal" data-target = "#mymodal" style="margin-top: 25%">Login</button></li>
-        <?php }else {?>
-                <?php if($_SESSION['Identification'] == 1) {?> <li><button type="button" class="btn btn-default btn-default2" onclick = "doctor_page()" style="margin-top: 25%"><?php echo $_SESSION['login_user']; ?></button></li><?php}else{ ?>
-                <li><button type="button" class="btn btn-default btn-default2" onclick = "user_page()" style="margin-top: 25%"><?php echo $_SESSION['login_user']; ?></button></li><?php } ?>
-                <?php } ?>
+        <?php }?>
       </ul>
       
       <script>
@@ -168,6 +179,11 @@
                 window.location.href = "user/user.php";
  
         
+        }
+        
+        function logout_page(){
+        
+                window.location.href = "logout.php";
         }
       </script>
     </div>
@@ -217,13 +233,13 @@
             <label>
               Mobile<span class="req">*</span>
             </label>
-            <input type="number" name="mobile_no"  class="form-control input-lg" placeholder="Mobile No" tabindex="3"  required autocomplete="off"/>
+            <input type="number" name="mobile_no" required autocomplete="off"/>
           </div>
           <div class="field-wrap">
             <label>
               Address<span class="req">*</span>
             </label>
-                <input type="text" name="address"  class="form-control input-lg" placeholder="Residential Address" tabindex="3" autocomplete="off"/>
+                <input type="text" name="address" autocomplete="off"/>
           </div>
           
           

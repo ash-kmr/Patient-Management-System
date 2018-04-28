@@ -1,6 +1,6 @@
 <?php
 
-        include 'includes/connection.php';
+        include '../includes/connection.php';
         session_start();
         
         if(isset($_SESSION['ID']) && $_SESSION['Identification'] == 1){

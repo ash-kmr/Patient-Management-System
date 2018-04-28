@@ -118,6 +118,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   
 </head>
 <body>
+<!--
 <div class = "mynav">
 	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
   <div class="container-fluid">
@@ -136,7 +137,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
         <!--
         <li><a href="#">Page 2</a></li>
         <li><a href="#">Page 3</a></li>
-        -->
+       
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if(isset($_SESSION['login_user'])){ ?>
@@ -150,6 +151,9 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
       </div>
       </div>
       </nav>
+      -->
+ 
+ <?php include "mainheader.php"; ?>     
  <div class="banner1 jarallax">
 		<div class="container">
 		</div>
