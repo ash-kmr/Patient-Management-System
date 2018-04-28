@@ -120,9 +120,11 @@
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Autour One' rel='stylesheet'>
   <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/footer.css">
   <script type="text/javascript" src = "js/login.js"></script>
   <script src = "js/jquery.min.js"></script>
 </head>
@@ -399,17 +401,17 @@
   <div class="col-sm-6" style="text-align:center;padding-right: 0%; padding-top: 3%"><img src="Images/images/about.jpg" width="80%"></div>
 </div>
 <div class = "container-fluid" style="padding-top: 3%">
-  <div class = "col-sm-3">
-    <img class = "img-responsive" src="Images/images/g1.jpg">
+  <div class = "col-sm-3 nonpad" style = "background-color: black">
+    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g1.jpg">
   </div>
-  <div class = "col-sm-3">
-    <img class = "img-responsive" src="Images/images/g2.jpg">
+  <div class = "col-sm-3 nonpad" style = "background-color: black">
+    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g2.jpg">
   </div>
-  <div class = "col-sm-3">
-    <img class = "img-responsive" src="Images/images/g3.jpg">
+  <div class = "col-sm-3 nonpad" style = "background-color: black">
+    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g3.jpg">
   </div>
-  <div class = "col-sm-3">
-    <img class = "img-responsive" src="Images/images/g4.jpg">
+  <div class = "col-sm-3 nonpad" style = "background-color: black">
+    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g4.jpg">
   </div>
 </div>
 <div class = "container" style="padding-top: 3%;">
@@ -420,10 +422,4 @@
       <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white"><a href="nearbyhospital.html">GO</a></button></div>
 </div>
 <br><br><br><br>
-<script>
-function init(){
-        document.getElementById("invalid").style.opacity = "1";
-}
-</script>
-</body>
-</html>
+<?php include("footer.php") ?>
