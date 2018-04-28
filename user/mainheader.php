@@ -1,3 +1,111 @@
+<?php
+
+        /*Connection =.php will be included in inncludes folder*/
+        include("../includes/connection.php");
+
+        //session_start();
+        
+        if($_SERVER["REQUEST_METHOD"] == "POST"){
+        
+        
+                if(isset($_POST['Login'])){
+        
+        
+                        $username = $conn->escape_string($_POST['Email']);
+			$password = $conn->escape_string($_POST['Password']);
+			
+			$password = md5($password);
+                
+                        if(isset($_POST['user'])){
+                                
+                                $sql = "select * from Auth_patient join Patient using(P_id) where Auth_patient.email = '".$username."' and password = '".$password."'"; 
+                                $result = $conn->query($sql);
+                                if($result){
+                                
+                                        $row  = $result->fetch_assoc();
+                                        
+                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
+                                        $_SESSION['ID'] = $row['P_id'];
+                                        $_SESSION['Identification'] = 0;
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                                
+                                }else{
+                        
+                                        //echo '<script>init();</script>';
+                                        $error = "Invalid Username or Password";
+                        
+                                }
+                        }else if(isset($_POST['doctor'])){
+                        
+                        
+                                $sql = "select * from Auth_doctor join Doctor using(doctor_id) where email = '".$username."' and password = '".$password."'";
+                                $result = $conn->query($sql);
+                                if($result){
+                        
+                                        $row = $result->fetch_assoc();
+                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
+                                        $_SESSION['ID'] = $row['doctor_id'];
+                                        $_SESSION['Identification'] = 1;
+                                        header('Location: '.$_SERVER['REQUEST_URI']);
+                        
+                                }else{
+                                
+                                
+                                        $error = "Invalid UserName or Password";
+                                
+                                }
+                        }else{
+                        
+                        
+                                $error = "Select atleast 1 Option";
+                        
+                        }
+                
+                }else{
+                
+                        
+                        $First_Name = $conn->escape_string($_POST['First_Name']);
+                        $Last_Name = $conn->escape_string($_POST['Last_Name']);
+                        $Email = $conn->escape_string($_POST['Email']);
+			$Password = $conn->escape_string($_POST['Password']);
+                        $Mobile_no = $conn->escape_string($_POST['mobile_no']);
+                        $Address = $conn->escape_string($_POST['address']);
+                
+                        $sql = "insert into Patient(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
+                        
+                        if ($conn->query($sql)){
+                                //echo '<script>alert("Hello")</script>';
+                        
+                                $Password = md5($Password);
+                                $Patient = "select P_id from Patient where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
+                        
+                                $result = $conn->query($Patient);
+                                if($result){
+                                        //echo '<script>alert("Hello")</script>';
+                                        $row = $result->fetch_assoc();
+                                        $P_id = $row['P_id'];
+                                        $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
+                                        if($conn->query($auth_p)){
+                                        
+                                                //echo '<script>alert("Hello")</script>';
+                                                
+                                                $_SESSION['login_user'] = $First_Name;
+                                                $_SESSION['ID'] = $P_id;
+                                                $_SESSION['Identification'] = 0;
+                                               
+                                                header('Location: '.$_SERVER['REQUEST_URI']);
+                                        
+                                        
+                                        }                                
+                                }
+                        
+                        }
+                
+                }
+        }
+
+?>
+
 <head>
   <title>Bootstrap Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +120,7 @@
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/material-kit.css" rel="stylesheet"/>
 <script src="../assets/js/material-kit.js?v=2.0.0"></script>
-  <script src = "../js/jquery.min.js"></script>
+  <script src = "js/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="star.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
@@ -30,6 +138,7 @@
   <link rel="stylesheet" href="../css/login.css">
   <script type="text/javascript" src = "../js/login.js"></script>
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/banner.css">
 </head>
 <body>
 <div class = "mynav">
@@ -45,12 +154,42 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Departments</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="Departments.php">Departments</a></li>
         <li><a href="#">Nearby Hospitals</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" data-toggle= "modal" data-target = "#mymodal"><span class="glyphicon glyphicon-log-in"></span> Login/Signup</a></li>
+      <?php if(isset($_SESSION['ID'])){?>
+     
+        <?php   if($_SESSION['Identification'] == 0){ ?>
+        <li><a href ="user/user.php"><?php  echo $_SESSION['login_user'];?></a></li>
+        
+        <?php } else { ?>
+        
+         <li><a href="doctors/doctor.html"><?php  echo $_SESSION['login_user'];?></a></li>
+        
+        <?php  } ?>
+        <li><a href="logout.php">Logout</a></li>
+     <?php } else{  ?>
+        <li><a href="#" data-toggle= "modal" data-target = "#mymodal">Login/SignUp</a></li>
+        <?php }?>
+      </ul>
+      
+      <script>
+      
+        function doctor_page(){
+        
+                window.location.href = "doctors/doctor.html";
+ 
+        }
+        
+        function user_page(){
+        
+                window.location.href = "user/user.php";
+ 
+        
+        }
+      </script>
       </ul>
       </div>
       </div>
