@@ -1,22 +1,4 @@
-<?php
 
-        include '../includes/Connection.php';
-        
-        if(isset($_GET['q']) {
-        
-                $P_id = $_GET['q'];
-                /*Update Query For Appointments*/
-                $sql = "select first_name, last_name, address, phone from Patient where P_id = '$P_id'";
-                
-                $result = $conn->query($sql);
-                /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
-                
-                /*SELECT slot_id,time_start,time_end from slots where slot_id not in (
-    select slot_id from Appointments where doctor_id = 3 and Date='2018-04-11' 
-    UNION
-	select slot_id from unavailable where doctor_id = 3 and Date = '2018-04-11');  for Available slots*/               
-        }
-?>
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -77,7 +59,7 @@
       </nav>
       </div>
 
-<div class = "container" style="margin-top: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
+<div class = "container" style="margin-top: 10%; margin-bottom: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
 <div class = "container-fluid" style="margin-top: 10%; margin-bottom: 10%">
 	<div class = "col-sm-1"></div>
 	<div class="col-sm-4"><img src="../Images/images/t3.jpg"></div>
