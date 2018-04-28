@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -87,24 +86,24 @@
 	<div class = "col-sm-1"></div>
 	<div class = "col-sm-6">
 		<h2>Edit profile information</h2>
-		<form>
+		<form action="updateprofile.php" method = "get">
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
-				<input type="text" class="form-control" value = <?php echo $result['first_name'] ?> >
+				<input type="text" class="form-control" name = 'firstname' value = <?php echo $result['first_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Last Name</label>
-				<input type="text" class="form-control" value = <?php echo $result['last_name'] ?> >
+				<input type="text" class="form-control" name = 'lastname' value = <?php echo $result['last_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Address</label>
-				<input type="text" class="form-control" value = <?php echo $result['address'] ?> >
+				<input type="text" class="form-control" name = 'address' value = <?php echo $result['address'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Phone Number</label>
-				<input type="number" class="form-control" <?php echo $result['phone'] ?> >
+				<input type="number" class="form-control" name = 'phone' <?php echo $result['phone'] ?> >
 			</div>
-			<button class="btn btn-info">Save changes</button>
+			<button type = 'submit' name = 'submit' class="btn btn-info">Save changes</button>
 		</form>
 	</div>
 	</div>

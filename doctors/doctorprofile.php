@@ -87,24 +87,24 @@
 	
 	<div class = "col-sm-1"></div>
 	<div class = "col-sm-6">
-		<form>
+		<form action = "updateprofile.php" method = "get">
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
-				<input type="text" class="form-control" value = <?php echo $result['first_name'] ?> >
+				<input type="text" class="form-control" name = 'firstname' value = <?php echo $result['first_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Last Name</label>
-				<input type="text" class="form-control" value = <?php echo $result['last_name'] ?> >
+				<input type="text" class="form-control" name = 'lastname' value = <?php echo $result['last_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Education</label>
-				<input type="text" class="form-control" value = <?php echo $result['education'] ?> >
+				<input type="text" class="form-control" name = 'education' value = <?php echo $result['education'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Specialization</label>
-				<input type="number" class="form-control" <?php echo $result['specialization'] ?> >
+				<input type="text" class="form-control" name = "spec" value = <?php echo $result['specialization'] ?> >
 			</div>
-			<button class="btn btn-info">Save changes</button>
+			<button type = 'submit' class="btn btn-info">Save changes</button>
 		</form>
 	</div>
 	</div>
