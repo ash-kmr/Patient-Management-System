@@ -34,6 +34,22 @@
   <!-- star rating js -->
   </head>
 <body>
+<script type="text/javascript">
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 <div class = "mynav">
 	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
   <div class="container-fluid">
@@ -62,7 +78,12 @@
 <div class = "container" style="margin-top: 10%; margin-bottom: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
 <div class = "container-fluid" style="margin-top: 10%; margin-bottom: 10%">
 	<div class = "col-sm-1"></div>
-	<div class="col-sm-4"><img src="../Images/images/t3.jpg"></div>
+	<div class="col-sm-4">
+		<img id = "blah" src="../Images/images/t3.jpg">
+		<br><br><br>
+		<input type='file' name = "userimage" onchange="readURL(this);" />
+	</div>
+	
 	<div class = "col-sm-1"></div>
 	<div class = "col-sm-6">
 		<h2>Edit profile information</h2>
