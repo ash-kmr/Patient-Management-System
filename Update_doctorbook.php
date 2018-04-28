@@ -158,8 +158,29 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
 	
   </div>
   <div class = "container">
-    <button class="btn btn-alert" style="margin-bottom: 3%" data-toggle="modal" data-target="#myModal">Add a Review</button>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <button class="btn btn-alert" style="margin-bottom: 3%" onclick="myfunction2(this)">Add a Review</button>
+    <script>
+  
+        function myFunction2(x){
+        
+                if(<?php if(isset($_SESSION['ID'])) echo 1; else echo 0; ?>){
+                
+                        x.setAttribute("data-target","#myModal_Review");
+                        x.setAttribute("data-toggle","modal");
+                        
+                        
+                }else{
+                
+                        window.location="./PHP-login_sign_up/login.php";
+                
+                }
+        
+        
+        
+        }
+        
+  </script>
+        <div class="modal fade" id="myModal_Review" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -175,7 +196,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 <textarea name= "description" class = 'form-control' rows="10" cols="50">Enter Your Text Here ...</textarea>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
-                <button type = "submit"  value = "submit"  class="btn btn-alert btn-simple" name="submit">Confirm</button>
+                <button type = "submit"  value = "Review"  class="btn btn-alert btn-simple" name="submit">Confirm</button>
               </div>
                 <!--<button class="btn btn-alert" style="margin-bottom: 3%" name="Submit">Confirm</button>-->
                 </form>

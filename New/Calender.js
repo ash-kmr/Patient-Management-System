@@ -124,6 +124,7 @@ function getTimeSlot(x){
         var query     = Year+"-"+MonthNumber+"-"+date;
         var url = "";
         
+        
         $(document).ready(function(){
         
                 url = "getTime.php?q="+query;
@@ -137,20 +138,56 @@ function getTimeSlot(x){
                                   var keys = Object.keys(json);
                                   html += "<div>";
                                   keys.forEach(function(key) {
-                                  /*
-                                   html += "<label style='margin-left: 12%;'>"+json[key]+"</label>";
-                                    html += "<input name = 'Slots' type = 'checkbox' id = '" + key + "'><br>";
-                                    */
-                                    html += "<h1>Bad</h1>";
+                                  
+                                   
+                                    html += "<input class= 'Time_Slots' onchange='changeInputValues("+date+")' name = 'Slots' type = 'radio' id = '" + key + "'>";
+                                    html += "<label>"+json[key]+"</label>";
+                                    
+                                    //html += "<h1>Bad</h1>";
                                   });
                                   html += "</div><br>";
+                                  
+                                  
                       
                        
-                       $("#demo").html(html);
+                       $("#Natural").html(html);
                 
                 });
         
         });
+        
+      
+              
+                                
         //document.getElementById("demo").innerHTML = dummy;
 
+}
+
+function changeInputValues(x){
+
+        
+        var Year = document.getElementById("Year").innerHTML;     
+        var date = x;
+        var MonthName = (document.getElementById("monthName").innerHTML).toString();
+
+        MonthName = MonthName.trim();
+        var MonthNumber = Months.indexOf(MonthName) + 1;
+
+        var complete = Year+"-"+MonthNumber+"-"+date;
+        //alert(complete);
+        document.getElementById("Date_Appointment").innerHTML = complete;
+        
+        var Time_Slots = document.getElementsByClassName('Time_Slots');
+        
+        //var Elements;
+        for(var i =0 ;i<Time_Slots.length;i++){
+        
+                if(Time_Slots[i].checked){
+                
+                        //alert(Time_Slots[i].getAttribute("id"));
+                        document.getElementById('Slot_ID').innerHTML = Time_Slots[i].getAttribute("id");
+                }       
+        }
+        
+        
 }

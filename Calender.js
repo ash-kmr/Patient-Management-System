@@ -5,6 +5,7 @@ Use : Javascript file for self-built Calender function
 */
 var Months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+
 /*This function Provides Number of Days given month and Year*/
 function daysInMonth (month, year) {
 
@@ -123,7 +124,7 @@ function getTimeSlot(x){
         
         var query     = Year+"-"+MonthNumber+"-"+date;
         var url = "";
-        
+        //alert(query);
         $(document).ready(function(){
         
                 url = "getTime.php?q="+query;
@@ -135,22 +136,64 @@ function getTimeSlot(x){
                         
                         
                                   var keys = Object.keys(json);
-                                  html += "<div>";
+                                  html += "<div id='remember' class='field-wrap'>";
                                   keys.forEach(function(key) {
-                                  /*
-                                   html += "<label style='margin-left: 12%;'>"+json[key]+"</label>";
-                                    html += "<input name = 'Slots' type = 'checkbox' id = '" + key + "'><br>";
-                                    */
-                                    html += "<h1>Bad</h1>";
+                                  
+                                html += "<div class='col-sm-2'>";                                         
+                                   html += "<label style = 'color:black;margin-left: 5%'>"+json[key]+"</label></div>";
+                                   html += "<div class = 'col-sm-4'>";
+                                    html += "<input style='width: 20px; height: 20px' value = '1' class= 'Time_Slots' onchange='changeInputValues("+date+")' name = 'Slots' type = 'radio' id = '" + key + "'></div>";
+                                    html += "<div class = 'col-sm-6'></div>";
+                                   
+                                    //html += "<h1>Bad</h1>";
                                   });
                                   html += "</div><br>";
+                                  
+                                  
                       
                        
-                       $("#demo").html(html);
+                       $("#Natural").html(html);
+                       //alert(html);
                 
                 });
         
         });
+        
+      
+              
+                                
         //document.getElementById("demo").innerHTML = dummy;
 
+}
+
+function changeInputValues(x){
+
+        
+        var Year = document.getElementById("Year").innerHTML;     
+        var date = x;
+        var MonthName = (document.getElementById("monthName").innerHTML).toString();
+
+        MonthName = MonthName.trim();
+        var MonthNumber = Months.indexOf(MonthName) + 1;
+
+        var complete = Year+"-"+MonthNumber+"-"+date;
+        //alert(complete);
+        document.getElementById("Date_Appointment").value = complete;
+        
+        var Time_Slots = document.getElementsByClassName('Time_Slots');
+        
+        //var Elements;
+        for(var i =0 ;i<Time_Slots.length;i++){
+        
+                if(Time_Slots[i].checked){
+                
+                        //
+                        document.getElementById('Slot_ID').value = Time_Slots[i].getAttribute("id");
+                        //alert(document.getElementById('Slot_ID').value);
+                        //alert(document.getElementById("Date_Appointment").value);
+                }       
+        }
+        
+        //alert('Hello');
+        
 }

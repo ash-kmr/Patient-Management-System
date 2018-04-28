@@ -61,7 +61,7 @@
                         
                         }
                 
-                }else{
+                }if(isset($_POST['Sign_Up'])){
                 
                         
                         $First_Name = $conn->escape_string($_POST['First_Name']);
@@ -171,7 +171,7 @@
         <?php  } ?>
         <li><a href="logout.php">Logout</a></li>
      <?php } else{  ?>
-        <li><a href="#" data-toggle= "modal" data-target = "#mymodal">Login/SignUp</a></li>
+        <li><a href="#" id = "Login/Signup" data-toggle= "modal" data-target = "#mymodal">Login/SignUp</a></li>
         <?php }?>
       </ul>
       
@@ -264,7 +264,7 @@
             
           </div>
           
-          <input type="submit" id = "buttonActivate" name = "Sign Up" class="button button-block"/>Sign Up
+          <input type="submit" id = "buttonActivate" name = "Sign_Up" class="button button-block"/>Sign Up
           <script>
           $('#password, #confirm_password').on('keyup', function () {
                 if ($('#password').val() == $('#confirm_password').val()) {
