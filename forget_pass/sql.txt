@@ -1,0 +1,9 @@
+create table verify(
+id  int,
+P_id   int,
+date  datetime,
+otp   int,
+
+FOREIGN key(P_id) references patient(P_id)
+
+)

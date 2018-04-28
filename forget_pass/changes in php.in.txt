@@ -1,0 +1,2 @@
+openssl.cafile="C:\xampp\htdocs\PHP-login_sign_up\mailer\cacert.pem"
+curl.cainfo="C:\xampp\htdocs\PHP-login_sign_up\mailer\cacert.pem
