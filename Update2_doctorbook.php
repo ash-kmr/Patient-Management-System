@@ -253,7 +253,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 <label> Name : </label>
                 <input type="text" name = "name" placeholder = "Enter Your Name"></input>
                 <label> Description : </label>
-                
+                <h2 id = "secret">SECRET</h2>
 				<textarea name= "description" class = 'form-control' rows="10" cols="50">Enter Your Text Here ...</textarea>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
