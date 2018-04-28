@@ -2,7 +2,7 @@
 
         include 'includes/Connection.php';
         
-        if(isset($_GET['q']){
+        if(isset($_GET['q']) {
         
                 $P_id = $_GET['q'];
                 /*Update Query For Appointments*/
@@ -17,7 +17,7 @@
 	select slot_id from unavailable where doctor_id = 3 and Date = '2018-04-11');  for Available slots*/               
         }
 ?>
-<?php include("mainheader.php")?>
+<?php include("mainheader.php") ?>
 
         <div class = "header">BILLS</div>
 <br><br>
