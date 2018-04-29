@@ -1,3 +1,50 @@
+<?php include("../includes/connection.php"); ?>
+<?php 
+  #if(isset($_GET['q'])){
+        
+                #$doctorid = $_GET['q'];
+                
+                $sql = "select first_name, last_name, specialization, education from Doctor where doctor_id =1"; 
+        
+                $result = $conn->query($sql);
+                $result = $result->fetch_assoc();
+  #      }
+?>
+<?php
+//echo "<script>alert('entered as'); </script>";
+if($_SERVER["REQUEST_METHOD"] == "POST")
+				{
+					if(isset($_POST['update']))
+						{
+							$id = 1;//$_SESSION['ID'];
+	
+
+		$target_dir = "images/";    //enter the destination
+    echo "<script>alert($target_dir);</script>";
+				$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+				
+				if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
+					{
+						if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
+							{        
+								move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+							}
+					}
+   
+	$firstname = $conn->escape_string($_POST['firstname']);
+	$lastname = $conn->escape_string($_POST['lastname']);
+	$address = $conn->escape_string($_POST['education']);
+	$phone = $conn->escape_string($_POST['spec']);
+	$aa= $firstname." ".$lastname." ".$address." ".$phone;
+	echo "<script type='text/javascript'>alert('$aa');</script>";
+	$sql = "update Patient set first_name = '$firstname', last_name = '$lastname' and address = '$address' and phone = '$phone' where P_id = '$id'";
+	$conn->query($sql);
+	
+						}
+				}	
+?>
+
 
 <html lang="en">
 <head>
@@ -79,15 +126,16 @@
 <div class = "container-fluid" style="margin-top: 5%; margin-bottom: 5%">
 <h2><center><b>Edit profile information</b></center></h2><br>
 	<div class = "col-sm-1"></div>
+	<form action = "" method = "post"   enctype="multipart/form-data">
 	<div class="col-sm-4">
 		<img id = "blah" src="../Images/images/t3.jpg">
 		<br><br><br>
-		<input type='file' name = "userimage" onchange="readURL(this);" />
+		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">	
 	</div>
 	
 	<div class = "col-sm-1"></div>
 	<div class = "col-sm-6">
-		<form action = "updateprofile.php" method = "get">
+		
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
 				<input type="text" class="form-control" name = 'firstname' value = <?php echo $result['first_name'] ?> >
@@ -104,8 +152,9 @@
 				<label class="control-label" style="font-size:1.2em">Specialization</label>
 				<input type="text" class="form-control" name = "spec" value = <?php echo $result['specialization'] ?> >
 			</div>
-			<button type = 'submit' class="btn btn-info">Save changes</button>
-		</form>
+			<button type = 'submit' name='update' class="btn btn-info">Save Changes</button>
+		
 	</div>
+	</form>
 	</div>
 </div>
