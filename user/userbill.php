@@ -2,7 +2,7 @@
 
         include '../includes/connection.php';
         
-        if(isset($_GET['q']) {
+        if(isset($_GET['q'])) {
         
                 $P_id = $_GET['q'];
                 /*Update Query For Appointments*/
@@ -17,9 +17,9 @@
 	select slot_id from unavailable where doctor_id = 3 and Date = '2018-04-11');  for Available slots*/               
         }
 ?>
-<?php include("mainheader.php") ?>
+<?php include "mainheader.php"; ?>
 
-        <div class = "header">BILLS</div>
+<div class = "header">BILLS</div>
 <br><br>
 
 <!-- Repaeat this -->
@@ -30,6 +30,7 @@
   <div class = "col-sm-2"><img src="<?php if($row['image_url'] != null)  echo $row['image_url']; ?>"></div>
   <div class="col-sm-10">
   <div style="padding-left: 0%"><h3>Bill ID : <?php echo $row['Bill_id']; ?></h3></div>
+  <div style="padding-left: 0%"><h3>Date : <?php echo $row['Date']; ?></h3></div>
   <div style="padding-left: 0%"><h4>Reason : <?php echo $row['Reason']; ?></h4></div>
   <div style="padding-left: 0%"> <h4>Amount : <?php echo $row['Amount'];?></h4></div>
   <button class="btn btn-alert" style="margin-bottom: 3%" data-toggle="modal" data-target="#myModal">Cancel Appointment</button>

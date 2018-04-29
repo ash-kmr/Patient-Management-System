@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	echo "<script>alert('entered as'); </script>";
 	include("../includes/connection.php");
 
-		$target_dir = "C:/xampp/htdocs/LOG/uploads/";    //enter the destination
+		$target_dir = "./images/";    //enter the destination
 				$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 				
@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 						if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
 							{        
 								move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
-								echo 'moved file to destination directory';
+								echo "<script>alert('$target_file')</script>";
 							}
 					}
    

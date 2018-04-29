@@ -1,35 +1,51 @@
-<!DOCTYPE html> 
-<html> 
-<head>
+<?php
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css'>
+        include '../includes/connection.php';
+        
+        if(isset($_GET['q'])){
+        
+                $P_id = $_GET['q'];
+        
+                //$P_id = $_SESSION['ID'];
+        
+                $sql = "select * from Reviews join Doctor using(doctor_id) where P_id = '".$P_id."'";
+        
+                $result = $conn->query($sql);
+        
+        }
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Autour One' rel='stylesheet'>
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
-<script src="assets/js/material-kit.js?v=2.0.0"></script>
-  <script src = "js/jquery.min.js"></script>
-  
-  <link rel="stylesheet" type="text/css" href="./doctors/star.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/navbar.css">
-  
-  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="assets/js/material.min.js"></script>
-  <!-- CSS Files -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
-  <link href="assets/css/demo.css" rel="stylesheet" />
-  <link href="Calender.css" rel="stylesheet" />
-  <script src="Calender.js" type="text/javascript"></script>
+  <script src = "../js/jquery.min.js"></script>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/material-kit.css" rel="stylesheet"/>
+  <link href="../assets/css/demo.css" rel="stylesheet" />
+  <script src="/assets/js/core/jquery.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/bootstrap-material-design.js"></script>
+<script src="../assets/js/plugins/moment.min.js"></script>
+<script src="../assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<script src="../assets/js/plugins/nouislider.min.js"></script>
+<script src="../assets/js/material-kit.js?v=2.0.0"></script>
+  <link rel="stylesheet" href="BS4/assets/css/material-kit.css">
+  <style>
+    body{
+      background-color:#E5E7E9;
+    }
+  </style>
   <style>
     .clearfix {
   clear:both;
@@ -150,6 +166,7 @@ border-radius: 4px;
   color:#FF912C;
 }
 </style>
+
 <script>
 
 function createStar(){
@@ -160,7 +177,7 @@ function createStar(){
                        $(".stars_id").each(function(){ 
                        
                                 var onStar = $(this).attr('class')[0];
-                                alert(onStar);
+                                //alert(onStar);
                                 
                                 var stars = $(this).children('li.star');
                                     
@@ -175,14 +192,26 @@ function createStar(){
                 });
                            
 }
-
-
-
-</script> 
+</script>
 </head>
 <body>
-        <div class='rating-stars text-center'>
-                <ul class="2 stars_id">
+
+
+<div class = "header">Reviews</div>
+<br><br>
+
+<!-- Repeat this -->
+<?php if($result && $result->num_rows > 0){
+        while(($row = $result->fetch_assoc())){
+?>
+  <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
+  <div class = "col-sm-2"><img src="<?php if($row['image_url'] != null)  echo $row['image_url']; else echo '../Images/images/doc.png'; ?>"></div>
+  <div class="col-sm-10">
+  <div style="padding-left: 0%"><h3>Doctor Name : <?php  echo $row['first_name']." ".$row['last_name'];?></h3></div>
+  <div style="padding-left: 0%"><h4>Ratings : 
+  <!-- Change Here -->
+  <div class='rating-stars text-center'>
+                <ul class="<?php echo $row['Rating']; ?> stars_id">
                     <li class='star' title='Poor' data-value='1'>
                       <i class='fa fa-star fa-fw'></i>
                     </li>
@@ -200,28 +229,20 @@ function createStar(){
                     </li>
                   </ul>
        </div>
-       <div class='rating-stars text-center'>
-                <ul class="5 stars_id">
-                    <li class='star' title='Poor' data-value='1'>
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Fair' data-value='2'>
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Good' data-value='3'>
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='Excellent' data-value='4'>
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                    <li class='star' title='WOW!!!' data-value='5'>
-                      <i class='fa fa-star fa-fw'></i>
-                    </li>
-                  </ul>
-       </div>           
-                  <script>
+  
+  <!-- till This -->
+  </h4></div>
+  <div style="padding-left: 0%"><h4>Text :  <?php echo $row['text']; ?></h4></div>
+  
+  </div>
+  <?php }
+     }
+  ?>
+  
+  <script>
                   
                         createStar();
                   </script>
-</body>                  
+  <!-- Till This -->
+  </body>
 </html>
