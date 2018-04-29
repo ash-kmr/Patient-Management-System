@@ -1,0 +1,7 @@
+create table verify_email(
+date  datetime,
+otp   int,
+email  varchar(25)
+
+
+)
