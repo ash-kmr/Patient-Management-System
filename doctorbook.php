@@ -21,7 +21,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 
                 $Result = $ResultDoctor->fetch_assoc();
                 
-                $review = "select * from Reviews where doctor_id = '".$doctor_id."'";
+                $review = "select * from Reviews join Patient using(P_id) where doctor_id = '".$doctor_id."'";
                 
                 $result = $conn->query($review);
                 
@@ -176,6 +176,33 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   
 });
   </script>
+ <!-- Create number of stars required --> 
+  <script>
+
+function createStar(){
+
+                $(document).ready(function(){
+
+                        
+                       $(".stars_id").each(function(){ 
+                       
+                                var onStar = $(this).attr('class')[0];
+                                //alert(onStar);
+                                
+                                var stars = $(this).children('li.star');
+                                    
+                                   
+                                    
+                                    for (i = 0; i < onStar; i++) {
+                                      $(stars[i]).addClass('selected');
+                                    }
+                            
+                            
+                            });
+                });
+                           
+}
+</script>
   <!-- star rating js -->
 </head>
 
@@ -238,7 +265,31 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
     <?php if($result && $result->num_rows > 0){
         while(($row = $result->fetch_assoc())){
 ?>
-    <h4><?php   echo $row['Rating']?></h4>
+
+
+        <h4><?php  echo $row['first_name']." ".$row['last_name']; ?></h4>
+        <!-- Edit Here -->
+    <!-- <h4><?php   echo $row['Rating']?></h4> -->
+    <div class='rating-stars text-center'>
+                <ul class="<?php echo $row['Rating']; ?> stars_id">
+                    <li class='star' title='Poor' data-value='1'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Fair' data-value='2'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Good' data-value='3'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='Excellent' data-value='4'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                    <li class='star' title='WOW!!!' data-value='5'>
+                      <i class='fa fa-star fa-fw'></i>
+                    </li>
+                  </ul>
+       </div>
+    <!-- ------------------------------------------- -->
     <h4><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
     else echo $row['text'] ?></h4>
     <hr>
@@ -258,7 +309,10 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 }
     
     ?>
-    
+    <script>
+                  
+                        createStar();
+                  </script>
     <div class="modal fade" id="myModal_Cancel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
