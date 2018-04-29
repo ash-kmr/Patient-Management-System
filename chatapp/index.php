@@ -3,6 +3,7 @@
 Showing Reviews Query as : 
 Select first_name,last_name,image_url,Rating,text from Reviews join Patient using(P_id) where doctor_id = 1;
 -->
+<?include("config.php");include("login.php");?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,18 +67,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   <div id="content" style="margin-top:5%;height:100%;">
   <div class="container-fluid">
    <div class="chat container">
-    <div class="users col-sm-2">
-     <?
-      include("config.php");
-      echo "<h2>Users</h2>";
-      $sql=$dbh->prepare("SELECT name FROM chatters");
-      $sql->execute();
-      while($r=$sql->fetch()){
-       echo "<div class='user'>{$r['name']}</div>";
-      }
-    ?>
-    </div>
-    <div class="chatbox col-sm-10">
+    <div class="chatbox col-sm-12">
      <?
      if(isset($_SESSION['user'])){
       include("chatbox.php");
