@@ -1,3 +1,42 @@
+<?php
+//echo "<script>alert('entered as'); </script>";
+if($_SERVER["REQUEST_METHOD"] == "POST")
+				{
+					if($_POST['update'])
+						{
+							$id = 1;//$_SESSION['ID'];
+	echo "<script>alert('entered as'); </script>";
+	include("../includes/connection.php");
+
+		$target_dir = "C:/xampp/htdocs/LOG/uploads/";    //enter the destination
+				$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+				
+				if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
+					{
+						if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
+							{        
+								move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+								echo 'moved file to destination directory';
+							}
+					}
+   
+	$firstname = $conn->escape_string($_POST['firstname']);
+	$lastname = $conn->escape_string($_POST['lastname']);
+	$address = $conn->escape_string($_POST['address']);
+	$phone = $conn->escape_string($_POST['phone']);
+	$aa= $firstname." ".$lastname." ".$address." ".$phone;
+	echo "<script type='text/javascript'>alert('$aa');</script>";
+	//$sql = "update Patient set first_name = '$firstname', last_name = '$lastname' and address = '$address' and phone = '$phone' where P_id = '$id'";
+	//$conn->query($sql);
+	
+						}
+				}	
+?>
+
+
+
+
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -76,17 +115,20 @@
 
 <div class = "container" style="margin-top: 10%; margin-bottom: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
 <div class = "container-fluid" style="margin-top: 10%; margin-bottom: 10%">
+	
+	<form action="" method = "post"  enctype="multipart/form-data">
 	<div class = "col-sm-1"></div>
 	<div class="col-sm-4">
 		<img id = "blah" src="../Images/images/t3.jpg">
 		<br><br><br>
-		<input type='file' name = "userimage" onchange="readURL(this);" />
+		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">
+		 
 	</div>
 	
 	<div class = "col-sm-1"></div>
 	<div class = "col-sm-6">
 		<h2>Edit profile information</h2>
-		<form action="updateprofile.php" method = "get">
+		
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
 				<input type="text" class="form-control" name = 'firstname' value = <?php echo $result['first_name'] ?> >
@@ -103,8 +145,10 @@
 				<label class="control-label" style="font-size:1.2em">Phone Number</label>
 				<input type="number" class="form-control" name = 'phone' <?php echo $result['phone'] ?> >
 			</div>
-			<button type = 'submit' name = 'submit' class="btn btn-info">Save changes</button>
-		</form>
+			<input type = 'submit' name = 'update' class="btn btn-info">Save changes</button>
+		
 	</div>
+	</form>
 	</div>
+	
 </div>
