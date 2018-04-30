@@ -19,7 +19,12 @@
                        
                 
                 }
-        }
+         }else{
+         
+         
+                header('Location: ../index.php');
+         
+         }
 
 
 ?>
@@ -56,6 +61,7 @@
   </style>
 </head>
 <body bgcolor="maroon">
+<!--
 <div class = "mynav">
 	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
   <div class="container-fluid">
@@ -80,7 +86,8 @@
       </div>
       </nav>
 </div>
-
+-->
+<?php include 'mainheader.php'; ?>
 <div class="container-fluid" style="padding-top: 5%;">
   <div class = "container-fluid">
   <!-- HISTORY -->
@@ -99,7 +106,7 @@
 </div>
   </div>
   <div class = "col-sm-9" style="overflow: auto; max-height: 100vh;">
-  <iframe src="usersource.html" width="100%" height="500px" frameborder="0" id="frame" name="frame"></iframe></div>
+  <iframe src="userappointments.php?q=<?php  echo $row['P_id']; ?>" width="100%" height="500px" frameborder="0" id="frame" name="frame"></iframe></div>
   <script>
   
         function changeIframe(x){

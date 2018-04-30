@@ -3,7 +3,7 @@
         
         session_start();
 
-        $_SESSION['url'] = $_SERVER['REQUEST_URI'];
+        //$_SESSION['url'] = $_SERVER['REQUEST_URI'];
         
         $sql = "select distinct(dept_name),image_url from Doctor_department";
         

@@ -5,108 +5,9 @@
 
         //session_start();
         
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-        
-        
-                if(isset($_POST['Login'])){
-        
-        
-                        $username = $conn->escape_string($_POST['Email']);
-			$password = $conn->escape_string($_POST['Password']);
-			
-			$password = md5($password);
-                
-                        if(isset($_POST['user'])){
-                                
-                                $sql = "select * from Auth_patient join Patient using(P_id) where Auth_patient.email = '".$username."' and password = '".$password."'"; 
-                                $result = $conn->query($sql);
-                                if($result){
-                                
-                                        $row  = $result->fetch_assoc();
-                                        
-                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
-                                        $_SESSION['ID'] = $row['P_id'];
-                                        $_SESSION['Identification'] = 0;
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
-                                
-                                }else{
-                        
-                                        //echo '<script>init();</script>';
-                                        $error = "Invalid Username or Password";
-                        
-                                }
-                        }else if(isset($_POST['doctor'])){
-                        
-                        
-                                $sql = "select * from Auth_doctor join Doctor using(doctor_id) where email = '".$username."' and password = '".$password."'";
-                                $result = $conn->query($sql);
-                                if($result){
-                        
-                                        $row = $result->fetch_assoc();
-                                        $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
-                                        $_SESSION['ID'] = $row['doctor_id'];
-                                        $_SESSION['Identification'] = 1;
-                                        header('Location: '.$_SERVER['REQUEST_URI']);
-                        
-                                }else{
-                                
-                                
-                                        $error = "Invalid UserName or Password";
-                                
-                                }
-                        }else{
-                        
-                        
-                                $error = "Select atleast 1 Option";
-                        
-                        }
-                
-                }if(isset($_POST['Sign_Up'])){
-                
-                        
-                        $First_Name = $conn->escape_string($_POST['First_Name']);
-                        $Last_Name = $conn->escape_string($_POST['Last_Name']);
-                        $Email = $conn->escape_string($_POST['Email']);
-			$Password = $conn->escape_string($_POST['Password']);
-                        $Mobile_no = $conn->escape_string($_POST['mobile_no']);
-                        $Address = $conn->escape_string($_POST['address']);
-                
-                        $sql = "insert into Patient(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
-                        
-                        if ($conn->query($sql)){
-                                //echo '<script>alert("Hello")</script>';
-                        
-                                $Password = md5($Password);
-                                $Patient = "select P_id from Patient where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
-                        
-                                $result = $conn->query($Patient);
-                                if($result){
-                                        //echo '<script>alert("Hello")</script>';
-                                        $row = $result->fetch_assoc();
-                                        $P_id = $row['P_id'];
-                                        $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
-                                        if($conn->query($auth_p)){
-                                        
-                                                //echo '<script>alert("Hello")</script>';
-                                                
-                                                $_SESSION['login_user'] = $First_Name;
-                                                $_SESSION['ID'] = $P_id;
-                                                $_SESSION['Identification'] = 0;
-                                               
-                                                header('Location: '.$_SERVER['REQUEST_URI']);
-                                        
-                                        
-                                        }                                
-                                }
-                        
-                        }
-                
-                }
-        }
-
 ?>
 
-<head>
+
   <title>Bootstrap Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -139,7 +40,6 @@
   <script type="text/javascript" src = "js/login.js"></script>
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
       <link rel="stylesheet" type="text/css" href="css/banner.css">
-</head>
 <body>
 <div class = "mynav">
    <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
@@ -156,7 +56,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">Home</a></li>
         <li><a href="Departments.php">Departments</a></li>
-        <li><a href="#">Nearby Hospitals</a></li>
+        <li><a href="nearbyhospital.php">Nearby Hospitals</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <?php if(isset($_SESSION['ID'])){?>
@@ -209,8 +109,8 @@
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="" method="post">
-          
+          <form action="SignUp.php" method="post" id="SignUpForm">
+           <div id = "invalidSignUp" style="text-align : center; opacity: 0;color : red"><h4>This Email ID is already Registered</h4></div>
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -264,7 +164,7 @@
             
           </div>
           
-          <input type="submit" id = "buttonActivate" name = "Sign_Up" class="button button-block"/>Sign Up
+          <input type="submit" id = "buttonActivate" name = "Sign Up" class="button button-block"/>Sign Up
           <script>
           $('#password, #confirm_password').on('keyup', function () {
                 if ($('#password').val() == $('#confirm_password').val()) {
@@ -279,20 +179,68 @@
           
           </script>
           </form>
+          
+          <script>
+  
+                $(document).ready(function(){
+          
+                        //alert('Hello');
+                        $("#SignUpForm").submit(function(obj){
+                        
+                        
+                                var query = $("#SignUpForm").serialize();
+                                //alert(query);
+                                var url = "SignUp.php?"+query;
+                                
+                                //alert(url);
+                                
+                                $.getJSON(url,function(json){
+                                
+                                        var Key = Object.keys(json)[0];
+                                        /*
+                                        Key.forEach(function(key) {
+                                        
+                                        
+                                                alert(key+"="+json[key]);
+                                        });*/
+                                                                               
+                                        if(json[Key] == 'Invalid'){
+                                        
+                                        
+                                                $("#invalidSignUp").css("opacity","1");
+                                                
+                                                //alert('Invalid Username or Password');
+                                        
+                                        }else{
+                                        
+                                        
+                                                location.reload();
+                                        
+                                        }
+                                
+                                });
+                                obj.preventDefault();
+                        
+                        });
+                
+                
+                });
+        
+        </script>
 
         </div>
         
         <div id="login">   
           <h1>Welcome Back!</h1>
-          <div id = "invalid" style="text-align : center; opacity: 0;color : red"><h4>INVALID USERNAME/PASSWORD</h4></div>
-          <form action="" method="post">
           
+          <form action="Login.php" method="post" id="LoginForm">
+          <div id = "invalidLogin" style = "text-align:center;opacity:0;color:red">INVALID USERNAME/PASSWORD</div>
             <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
             <input type="email" name = "Email" required autocomplete="off"/>
-          </div>
+                </div>
           
           <div class="field-wrap">
             <label>
@@ -304,24 +252,70 @@
           <div class="container-fluid"></div>
           <div class = "col-sm-6">
           <label style="margin-left: 12%;">Patient</label>
-            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="user" value="1"><br></div>
+            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="Identification"><br></div>
             <div class = "col-sm-6">
             <label style="margin-left: 12%">Doctor</label>
-             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="doctor" value ="2"></div>
-      <script>
-      
-              $('input[type="checkbox"]').on('change', function() {
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="Identification"></div>
+			<script>
+			
+			        $('input[type="checkbox"]').on('change', function() {
                                         $('input[type="checkbox"]').not(this).prop('checked', false);
                                 });
                                 
-      </script>
-    </label>
-  </div>
+			</script>
+		</label>
+	</div>
           <p class="forgot"><a href="#">Forgot Password?</a></p>
           
           <input type="submit" name = "Login"  value = "Log In" class="button button-block"/>
           
           </form>
+          <script>
+  
+                $(document).ready(function(){
+          
+                        //alert('Hello');
+                        $("#LoginForm").submit(function(obj){
+                        
+                        
+                                var query = $("#LoginForm").serialize();
+                                //alert(query);
+                                var url = "Login.php?"+query;
+                                
+                                //alert(url);
+                                $.getJSON(url,function(json){
+                                
+                                        var Key = Object.keys(json)[0];
+                                        /*
+                                        Key.forEach(function(key) {
+                                        
+                                        
+                                                alert(key+"="+json[key]);
+                                        });*/
+                                       
+                                        if(json[Key] == 'Invalid'){
+                                        
+                                        
+                                                $("#invalidLogin").css("opacity","1");
+                                                
+                                                //alert('Invalid Username or Password');
+                                        
+                                        }else{
+                                        
+                                        
+                                                location.reload();
+                                        
+                                        }
+                                
+                                });
+                                obj.preventDefault();
+                        
+                        });
+                
+                
+                });
+        
+        </script>
 
         </div>
         

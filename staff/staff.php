@@ -31,6 +31,22 @@
       background-color:#E5E7E9;
     }
   </style>
+  <script type="text/javascript">
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 </head>
 <body>
 <div class = "mynav">
@@ -60,7 +76,7 @@
 <div class = "container" style="margin-top: 8%">
   <div class="form">
     <div id="signup">   
-      <form action="" method="post">
+      <form action="Upload.php" method="post" id="#BillUpdate">
       <h1 style="color:white">ADD A BILL</h1><br>
       <div class="field-wrap">
         <label>
@@ -96,11 +112,24 @@
         <input type="datetime" id = "datetime" name="Pass"required autocomplete="off"/>
         <span id="message"></span>
         
+		<img id = "blah" src="../Images/images/t3.jpg">
+		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">	
         
       </div>
       
       <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
       </form>
+      <script>
+  
+                $(document).ready(function(){
+                
+                        $("#BillUpdate").submit(function(obj){
+                        
+                                var query = $("#LoginForm").serialize();
+                        
+                        });
+                });  
+     </script>           
 </div>
 </div>
 </div>

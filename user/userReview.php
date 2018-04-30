@@ -1,19 +1,25 @@
 <?php
 
         include '../includes/connection.php';
-        
-        if(isset($_GET['q'])){
-        
-                $P_id = $_GET['q'];
-        
-                //$P_id = $_SESSION['ID'];
-        
-                $sql = "select * from Reviews join Doctor using(doctor_id) where P_id = '".$P_id."'";
-        
-                $result = $conn->query($sql);
-        
-        }
-
+        session_start();
+        if(isset($_SESSION['ID']) && $_SESSION['Identification'] == 0){
+                if(isset($_GET['q'])){
+                
+                        $P_id = $_GET['q'];
+                
+                        //$P_id = $_SESSION['ID'];
+                
+                        $sql = "select * from Reviews join Doctor using(doctor_id) where P_id = '".$P_id."'";
+                
+                        $result = $conn->query($sql);
+                
+                }
+        }else{
+         
+         
+                header('Location: ../index.php');
+         
+         }
 
 ?>
 <!DOCTYPE html>
@@ -197,7 +203,7 @@ function createStar(){
 <body>
 
 
-<div class = "header">Reviews</div>
+<div style="background-color: #1C2833; color:#B2BABB;border-radius:5px;padding-top:1.5%;padding-bottom:1.5%;text-align:center"><h2>Reviews</h2></div>
 <br><br>
 
 <!-- Repeat this -->
@@ -236,8 +242,11 @@ function createStar(){
   
   </div>
   <?php }
-     }
+     }else{
   ?>
+  
+        <h1 style="opacity: 0.5;text-align: center">No Reviews Yet</h1>
+  <?php }?>
   
   <script>
                   
