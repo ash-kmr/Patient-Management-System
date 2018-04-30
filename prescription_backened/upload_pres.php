@@ -4,7 +4,7 @@
 				{
 					if(isset($_POST['Add']))
 					{	
-		$d_id =1;
+		$d_id = $_SESSION['ID'];
         $P_id = $conn->escape_string($_POST['pid']);
         $diag = $conn->escape_string($_POST['diagnosis']);
         $pres = $conn->escape_string($_POST['pres']);
@@ -12,7 +12,7 @@
 				    echo "<script>alert('$P_id')</script>";
 	
                         //$target_dir = "/home/siddharth/Desktop/PatientManagementSystem/Patient-Management-System/user/UserBills/"; 
-		$target_dir = "C:/xampp/htdocs/LOG/uploads/";  //enter the destination
+		$target_dir = "Prescriptions/";  //enter the destination
         $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 		        //echo "<script>alert('$target_file')</script>";

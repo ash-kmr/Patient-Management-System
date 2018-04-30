@@ -443,7 +443,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Book Appointment with this Doctor</h4>
+                <h4 class="modal-title" id="myModalLabel">Cancel Appointments for the Day</h4>
               </div>
               <div class = "modal-body">
                         <div class="month">      
@@ -477,6 +477,7 @@ function createStar(){
                         
                                 <input type = "hidden" id="Date_Appointment" name = "Date_Appointment" readonly/>
                                 <input type = "hidden" id="Slot_ID" name = "Slot_ID" readonly/>
+                                
                                 <textarea class="form-control" name="Reason" placeholder="Enter Your Reason" rows="5"></textarea>
                                 <div class="modal-footer">
                                         <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
