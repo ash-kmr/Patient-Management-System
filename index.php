@@ -51,11 +51,15 @@
         <?php   if($_SESSION['Identification'] == 0){ ?>
         <li><button type="button" onclick = "user_page()" class="btn btn-default btn-default2" style="margin-top: 20%"><?php  echo $_SESSION['login_user'];?></button></li>
         
-        <?php } else { ?>
+        <?php } else if($_SESSION['Identification'] == 1) { ?>
         
          <li><button type="button" onclick = "doctor_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
         
-        <?php  } ?>
+        <?php  }else{ ?>
+        
+                <li><button type="button" onclick = "Staff_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
+        
+        <?php  }?>
         
         <li><button type="button" onclick = "logout_page()" class="btn btn-default btn-default2" style="margin-top: 25%">Logout</button></li>
      <?php } else{  ?>
@@ -74,6 +78,12 @@
         function user_page(){
         
                 window.location.href = "user/user.php";
+ 
+        
+        }
+        function Staff_page(){
+        
+                window.location.href = "staff/staff.php";
  
         
         }
@@ -138,8 +148,14 @@
             </label>
                 <input type="text" name="address" autocomplete="off"/>
           </div>
-          
-          
+          <div class="field-wrap">
+          <div class = "col-sm-6">
+          <label style="margin-left: 12%;">Patient</label>
+            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="Identification"><br></div>
+            <div class = "col-sm-6">
+            <label style="margin-left: 12%">Staff</label>
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Staff" name="Identification"></div>
+          </div><br><br><br>
           <div class="field-wrap">
             <label>
               Set A Password<span class="req">*</span>
@@ -242,12 +258,15 @@
           </div>
           <div id="remember" class=" field-wrap">
           <div class="container-fluid"></div>
-          <div class = "col-sm-6">
+         <div class = "col-sm-4">
           <label style="margin-left: 12%;">Patient</label>
             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="Identification"><br></div>
-            <div class = "col-sm-6">
+            <div class = "col-sm-4">
             <label style="margin-left: 12%">Doctor</label>
-             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="Identification"></div>
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Doctor" name="Identification"></div>
+             <div class = "col-sm-4">
+            <label style="margin-left: 12%">Staff</label>
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Staff" name="Identification"></div>
 			<script>
 			
 			        $('input[type="checkbox"]').on('change', function() {

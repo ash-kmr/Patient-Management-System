@@ -40,7 +40,7 @@
                         $arr['Result'] = 'Invalid';
                 }
                 
-        }else{
+        }else if($Identification == 'Doctor'){
         
         
                 $sql = "select * from Auth_doctor join Doctor using(doctor_id) where email = '".$username."' and password = '".$password."'";
@@ -59,6 +59,27 @@
                         $arr['Result'] = 'Invalid';        
                 
                 }        
+        
+        
+        }else{
+        
+                $sql = "select * from Auth_staff join Staff using(staff_id) where email = '".$username."' and password = '".$password."'";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0){
+                        
+                         $row = $result->fetch_assoc();
+                         $_SESSION['login_user'] = $row['first_name']." ".$row['last_name'];
+                         $_SESSION['ID'] = $row['staff_id'];
+                         $_SESSION['Identification'] = 2;
+                        
+                         $arr['Result'] = 'SuccessStaff';        
+                }else{
+                
+                
+                        $arr['Result'] = 'Invalid';        
+                
+                }
+        
         
         
         }

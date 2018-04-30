@@ -7,7 +7,7 @@
                 
                         $P_id = $_GET['q'];
                         /*Update Query For Appointments*/
-                        $sql = "select Bill_id, P_id, Reason, Amount, Date from Bill_Details where P_id = '$P_id'";
+                        $sql = "select Bill_id, P_id, Reason, Amount, Date from Bills_Details where P_id = '$P_id'";
                         
                         $result = $conn->query($sql);
                         /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
@@ -40,7 +40,7 @@
   <div style="padding-left: 0%"><h3>Date : <?php echo $row['Date']; ?></h3></div>
   <div style="padding-left: 0%"><h4>Reason : <?php echo $row['Reason']; ?></h4></div>
   <div style="padding-left: 0%"> <h4>Amount : <?php echo $row['Amount'];?></h4></div>
-  <button class="btn btn-alert" style="margin-bottom: 3%" data-toggle="modal" data-target="#myModal">Cancel Appointment</button>
+  
   </div>
   </div>
   <?php   }

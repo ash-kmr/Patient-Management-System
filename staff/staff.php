@@ -1,3 +1,19 @@
+<?php
+
+        include("../includes/connection.php");
+
+        session_start();
+        
+         if(isset($_SESSION['ID']) && $_SESSION['Identification'] == 2){        
+        
+                
+
+         }else{
+         
+         
+                header('Location: ../index.php');
+         }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +47,7 @@
       background-color:#E5E7E9;
     }
   </style>
+  
   <script type="text/javascript">
 	function readURL(input) {
         if (input.files && input.files[0]) {
@@ -49,6 +66,7 @@
 </script>
 </head>
 <body>
+<!--
 <div class = "mynav">
    <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
   <div class="container-fluid">
@@ -72,17 +90,25 @@
       </div>
       </div>
       </nav>
-</div>
+</div>-->
+<?php include 'mainheader.php'; ?>
 <div class = "container" style="margin-top: 8%">
   <div class="form">
     <div id="signup">   
-      <form action="Upload.php" method="post" id="#BillUpdate">
+      <form action="Upload.php" method="post" enctype="multipart/form-data">
       <h1 style="color:white">ADD A BILL</h1><br>
+      <div class="field-wrap">
+        <span id="message"></span>
+        
+		<img id = "blah" src="../Images/images/t3.jpg">
+		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);"/>	
+        
+      </div>
       <div class="field-wrap">
         <label>
           Patient ID<span class="req">*</span>
         </label>
-        <input type="text" name = "pid"required autocomplete="off"/>
+        <input type="text" name = "pid" id="pid" required autocomplete="off"/>
       </div>
       
       <div class="field-wrap">
@@ -105,31 +131,12 @@
         </label>
         <input type="text" id = "gst" name="Password"required autocomplete="off"/>
       </div>
-      <div class="field-wrap">
-        <label>
-          Datetime<span class="req">*</span>
-        </label>
-        <input type="datetime" id = "datetime" name="Pass"required autocomplete="off"/>
-        <span id="message"></span>
-        
-		<img id = "blah" src="../Images/images/t3.jpg">
-		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">	
-        
-      </div>
+      
       
       <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
       </form>
-      <script>
-  
-                $(document).ready(function(){
-                
-                        $("#BillUpdate").submit(function(obj){
-                        
-                                var query = $("#LoginForm").serialize();
-                        
-                        });
-                });  
-     </script>           
+      
+                 
 </div>
 </div>
 </div>

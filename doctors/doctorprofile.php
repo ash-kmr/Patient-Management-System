@@ -1,14 +1,11 @@
-<?php include("../includes/connection.php"); ?>
 <?php 
-  #if(isset($_GET['q'])){
-        
-                #$doctorid = $_GET['q'];
-                
+
+                include "../includes/connection.php";
                 $sql = "select first_name, last_name, specialization, education from Doctor where doctor_id =1"; 
         
                 $result = $conn->query($sql);
-                $result = $result->fetch_assoc();
-  #      }
+                $row = $result->fetch_assoc();
+
 ?>
 <?php
 //echo "<script>alert('entered as'); </script>";

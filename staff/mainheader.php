@@ -18,22 +18,22 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Autour One' rel='stylesheet'>
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
-<script src="assets/js/material-kit.js?v=2.0.0"></script>
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/material-kit.css" rel="stylesheet"/>
+<script src="../assets/js/material-kit.js?v=2.0.0"></script>
   <script src = "js/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="star.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
   <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
-  <script src="assets/js/jquery.min.js" type="text/javascript"></script>
-  <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="assets/js/material.min.js"></script>
+  <script src="../assets/js/jquery.min.js" type="text/javascript"></script>
+  <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../assets/js/material.min.js"></script>
   <!-- CSS Files -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/css/material-kit.css" rel="stylesheet"/>
-  <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/material-kit.css" rel="stylesheet"/>
+  <link href="../assets/css/demo.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/navbar.css">
   <link rel="stylesheet" href="css/login.css">
@@ -69,7 +69,7 @@
          <li><a href="doctors/doctor.html"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php  } ?>
-        <li><a href="logout.php">Logout</a></li>
+        <li><a href="../logout.php">Logout</a></li>
      <?php } else{  ?>
         <li><a href="#" id = "Login/Signup" data-toggle= "modal" data-target = "#mymodal">Login/SignUp</a></li>
         <?php }?>
@@ -109,7 +109,7 @@
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="SignUp.php" method="post" id="SignUpForm">
+          <form action="../SignUp.php" method="post" id="SignUpForm">
            <div id = "invalidSignUp" style="text-align : center; opacity: 0;color : red"><h4>This Email ID is already Registered</h4></div>
           <div class="top-row">
             <div class="field-wrap">
@@ -190,7 +190,7 @@
                         
                                 var query = $("#SignUpForm").serialize();
                                 //alert(query);
-                                var url = "SignUp.php?"+query;
+                                var url = "../SignUp.php?"+query;
                                 
                                 //alert(url);
                                 
@@ -233,7 +233,7 @@
         <div id="login">   
           <h1>Welcome Back!</h1>
           
-          <form action="Login.php" method="post" id="LoginForm">
+          <form action="../Login.php" method="post" id="LoginForm">
           <div id = "invalidLogin" style = "text-align:center;opacity:0;color:red">INVALID USERNAME/PASSWORD</div>
             <div class="field-wrap">
             <label>
@@ -283,7 +283,7 @@
                         
                                 var query = $("#LoginForm").serialize();
                                 //alert(query);
-                                var url = "Login.php?"+query;
+                                var url = "../Login.php?"+query;
                                 
                                 //alert(url);
                                 $.getJSON(url,function(json){

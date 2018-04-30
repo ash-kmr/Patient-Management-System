@@ -15,10 +15,11 @@
         $Password = $data['Password'];
         $Mobile_no = $data['mobile_no'];
         $Address = $data['address'];
+        $Identification = $data['Identification']; 
         
         $arr = array();
         
-        $check = "select email from Auth_patient";
+        $check = "select email from Auth_patient UNION SELECT email from Auth_staff";
         
         $EmailValid = $conn->query($check);
         $count = 0;
@@ -36,39 +37,79 @@
         }
         
         if($count == 0){
-                $sql = "insert into Patient(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
-                                
-                                
-                           
-                                if ($conn->query($sql)){
+                if($Identification == 'Patient'){
+                
+                        $sql = "insert into Patient(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
                                         
-                                
-                                        $Password = md5($Password);
-                                        $Patient = "select P_id from Patient where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
-                                
-                                        $result = $conn->query($Patient);
-                                        if($result->num_rows > 0){
+                                        
+                                   
+                                        if ($conn->query($sql)){
                                                 
-                                                $row_Sign = $result->fetch_assoc();
-                                                $P_id = $row_Sign['P_id'];
-                                                $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
-                                                if($conn->query($auth_p)){
-                                                
-                                                        //echo '<script>alert("Hello")</script>';
+                                        
+                                                $Password = md5($Password);
+                                                $Patient = "select P_id from Patient where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
+                                        
+                                                $result = $conn->query($Patient);
+                                                if($result->num_rows > 0){
                                                         
-                                                        $_SESSION['login_user'] = $First_Name;
-                                                        $_SESSION['ID'] = $P_id;
-                                                        $_SESSION['Identification'] = 0;
-                                                        $arr['Result'] = 'Success';
-                                                       //echo '<script>alert("Hello");</script>';
-                                                        //header('Location: '.$_SERVER['REQUEST_URI']);
-                                                
-                                                
-                                                }                                
+                                                        $row_Sign = $result->fetch_assoc();
+                                                        $P_id = $row_Sign['P_id'];
+                                                        $auth_p = "insert into Auth_patient(email,password,P_id) values('".$Email."', '".$Password."' , '".$P_id."')";
+                                                        if($conn->query($auth_p)){
+                                                        
+                                                                //echo '<script>alert("Hello")</script>';
+                                                                
+                                                                $_SESSION['login_user'] = $First_Name;
+                                                                $_SESSION['ID'] = $P_id;
+                                                                $_SESSION['Identification'] = 0;
+                                                                $arr['Result'] = 'Success';
+                                                               //echo '<script>alert("Hello");</script>';
+                                                                //header('Location: '.$_SERVER['REQUEST_URI']);
+                                                        
+                                                        
+                                                        }                                
+                                                }
+                                        
                                         }
-                                
-                                }
-        
+                }else{
+                
+                        $sql = "insert into Staff(first_name,last_name,phone,email,address) values('".$First_Name."','".$Last_Name."','".$Mobile_no."','".$Email."','".$Address."')";
+                                        
+                                        
+                                   
+                                        if ($conn->query($sql)){
+                                                
+                                        
+                                                $Password = md5($Password);
+                                                $Patient = "select staff_id from Staff where email = '".$Email."' and first_name = '".$First_Name."' and last_name = '".$Last_Name."'";
+                                        
+                                                $result = $conn->query($Patient);
+                                                if($result->num_rows > 0){
+                                                        
+                                                        $row_Sign = $result->fetch_assoc();
+                                                        $P_id = $row_Sign['staff_id'];
+                                                        $auth_p = "insert into Auth_staff(email,password,staff_id) values('".$Email."', '".$Password."' , '".$P_id."')";
+                                                        if($conn->query($auth_p)){
+                                                        
+                                                                //echo '<script>alert("Hello")</script>';
+                                                                
+                                                                $_SESSION['login_user'] = $First_Name;
+                                                                $_SESSION['ID'] = $P_id;
+                                                                $_SESSION['Identification'] = 2;
+                                                                $arr['Result'] = 'Success';
+                                                               //echo '<script>alert("Hello");</script>';
+                                                                //header('Location: '.$_SERVER['REQUEST_URI']);
+                                                        
+                                                        
+                                                        }                                
+                                                }
+                                        
+                                        }
+                
+                
+                
+                
+                }
         }
         $json = json_encode($arr);
         echo $json;      
