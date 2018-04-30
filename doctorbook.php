@@ -8,7 +8,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
         session_start();
         
         
-        //$_SESSION['url'] = $_SESSION['REQUEST_URI'];
+        $_SESSION['url'] = $_SESSION['REQUEST_URI'];
         //$result = "";
         if(isset($_GET['q'])){
         
@@ -30,21 +30,20 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 
                         if(isset($_POST['Review'])){
                         
-                                
                                 $Rating = $conn->escape_string($_POST['Ratings']);        
                         
                                 $Desc = $conn->escape_string($_POST['Description']);
                                 
                                 $P_id = $_SESSION['ID'];
-                                echo "<script>alert(".$P_id.")</script>";
+                        
                                 $sql = "insert into Reviews(doctor_id,text,Rating,P_id) values ('".$doctor_id."','".$Desc."','".$Rating."','".$P_id."')";
                                 
                                 $ans = $conn->query($sql);
                                 
                                 if($ans){
                                 
-                                       
-                                        header("Refresh:0");
+                                        $page = $_SERVER['REQUEST_URI'];
+                                        header("Refresh:0; url=$page");
                                 
                                 }
                         }else if(isset($_POST['CancelReview'])){
@@ -67,7 +66,13 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                                $Doc = $doctor_id;
                                $Date = $conn->escape_string($_POST['Date_Appointment']);
                                $slot_id = $conn->escape_string($_POST['Slot_ID']);
-                        
+							   
+							   $query1 = "SELECT * FROM unavailable where doctor_id = '" . Doc . "' AND slot_id ='" .$slot_id."' AND date = '".$Date."'";
+								$result1 = mysqli_query($conn,$query1);
+								$count = mysqli_num_rows($result1);
+								
+								if(count == 0)
+								{
                                 $sql = "insert into Appointments(P_id,doctor_id,Date,slot_id) values ('".$P_id."','".$Doc."','".$Date."','".$slot_id."')";
                                 
                                 $ans = $conn->query($sql);
@@ -86,6 +91,8 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                                 //echo "<script> alert('Wrong Daat')</script>";
                         
                         }
+						
+						}
         
         
         
@@ -93,6 +100,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
         }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -257,20 +265,21 @@ function createStar(){
   <div class = "col-sm-9"><h3>Doctor BIO:</h3></div>
   <div class = "col-sm-9"><h3>Doctor Education:</h3></div>
   <div class = "col-sm-9"><h3>Doctor Specialization:</h3></div>
-  <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%; margin-top:5%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
+  <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
   </div>
   <div class = "container">
-    <h3 style = "text-align:center"><b>Reviews</b></h3>
+    <h3>Reviews</h3>
     <br>
+    <hr>
     <?php if($result && $result->num_rows > 0){
         while(($row = $result->fetch_assoc())){
 ?>
-<hr>
-        <div class = 'col-sm-9'>
-        <h4><b><?php  echo $row['first_name']." ".$row['last_name']; ?></b></h4>
+
+
+        <h4><?php  echo $row['first_name']." ".$row['last_name']; ?></h4>
         <!-- Edit Here -->
     <!-- <h4><?php   echo $row['Rating']?></h4> -->
-    <div class='rating-stars'>
+    <div class='rating-stars text-center'>
                 <ul class="<?php echo $row['Rating']; ?> stars_id">
                     <li class='star' title='Poor' data-value='1'>
                       <i class='fa fa-star fa-fw'></i>
@@ -290,20 +299,19 @@ function createStar(){
                   </ul>
        </div>
     <!-- ------------------------------------------- -->
-    <h5><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
-    else echo $row['text'] ?></h5>
+    <h4><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
+    else echo $row['text'] ?></h4>
     <hr>
-    </div>
-    <div class = 'col-sm-3'>
+    
     <?php if(isset($_SESSION['ID'])){  ?>
     
         <?php if($_SESSION['ID'] == $row['P_id']) {?>
         
-                <button id= "<?php echo $row['review_id'];?>" class="btn btn-danger" style="margin-bottom: 3%;font-size:0.6" onclick="CancelReview(this)">Delete</button>
+                <button id= "<?php echo $row['review_id'];?>" class="btn btn-alert" style="margin-bottom: 3%" onclick="CancelReview(this)">Cancel Review</button>
         
         <?php } ?>
     
-    <?php } ?></div>
+    <?php } ?>
     <?php
         }
         
@@ -319,8 +327,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Delete Review</h4>
-                <p> Are you sure to delete this? </p>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
               </div>
               <form action="" method="post">
               
@@ -399,7 +406,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Add a Review</h4>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
               </div>
               
               <div class="modal-body">
@@ -443,7 +450,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Cancel Appointments for the Day</h4>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
               </div>
               <div class = "modal-body">
                         <div class="month">      
@@ -471,13 +478,12 @@ function createStar(){
                         <ul class="days" id="list-Days">  
 
                         </ul>
-
+                    
                         <p id="Natural"></p>
                         <form action="" method="post">
                         
                                 <input type = "hidden" id="Date_Appointment" name = "Date_Appointment" readonly/>
                                 <input type = "hidden" id="Slot_ID" name = "Slot_ID" readonly/>
-                                
                                 <textarea class="form-control" name="Reason" placeholder="Enter Your Reason" rows="5"></textarea>
                                 <div class="modal-footer">
                                         <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Close</button>
@@ -485,7 +491,22 @@ function createStar(){
                                 </div>
                         
                         </form>
-                        <script>
+    <?php
+							if($_SERVER["REQUEST_METHOD"] == "POST")
+							{
+							if($_POST["Book"])
+								{
+									$Doc = $doctor_id;
+									$Date = $conn->escape_string($_POST['Date_Appointment']);
+									$slot_id = $conn->escape_string($_POST['Slot_ID']);
+									$qu = "INSERT into unavailable(doctor_id,slot_id,date) VALUES('" . $_Doc . "', '" . $slot_id . "', '" . $Date . "')";
+									$result = mysqli_query($conn,$qu);
+								}
+							}
+                         ?> 
+
+
+ <script>
 
                                 var MonthName = document.getElementById("monthName").innerHTML;
                                 var Year      = document.getElementById("Year").innerHTML;
@@ -499,8 +520,8 @@ function createStar(){
 
   
         function myFunctionBook(x){
-        
-                if(<?php if(isset($_SESSION['ID'])) echo 1; else echo 0; ?>){
+       // $_SESSION['ID']=1;
+               /* if(<?php if(isset($_SESSION['ID'])) echo 1; else echo 0; ?>){
 					//alert("assa")
                         x.setAttribute("data-target","#myModal_Book");
                         x.setAttribute("data-toggle","modal");
@@ -511,7 +532,10 @@ function createStar(){
                         document.getElementById("Login/Signup").click();
                 
                 }
-        
+        */
+		 x.setAttribute("data-target","#myModal_Book");
+                        x.setAttribute("data-toggle","modal");
+                        
         
         
         }
