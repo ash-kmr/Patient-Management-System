@@ -1,45 +1,45 @@
 <?php
 
-        include '../includes/connection.php';
-        session_start();
-        
-			if($_SERVER["REQUEST_METHOD"] == "POST")
-				{
-					if($_POST['Add'])
-						{
-							$Email = $conn->escape_string($_POST['email']);
+        include 'includes/connection.php';
+       
+		session_start();
+     
+		//if($_SERVER['HTTP_REFERER']=='http://localhost/Final_Project_CSP203-master/24-04/mailer/class.smtp.php')
 
-							$sql = "select P_id , count(*) as total from patient where email = '".$Email."'";
-							$result = $conn->query($sql);
-							$row = $result->fetch_assoc();	
-							$P_id  = $row['P_id'];
+			if($_SERVER["REQUEST_METHOD"] == "POST" )
+				{	
+					if( ($_POST['set_pass']))
+						{
+							$pass = $conn->escape_string($_POST['password']);
+							$con_pass = $conn->escape_string($_POST['conform_password']);
+							$p_id = $_SESSION['patient_id'];
 							
-							if($row['total'])
+							
+							if($pass==$con_pass)
 								{	
-									
-									$otp = 	rand();
-									$date = date('Y-m-d H:i:s');
-									
-									$delete = "delete from verify where P_id='".$P_id."'";
-									$conn->query($delete);
-									
-									$qy = "insert into verify(P_id,date,otp) values('".$P_id."','"."$date"."','".$otp."')";
-									$conn->query($qy);
-									
-									//echo "<script type='text/javascript'>alert('$otp');</script>"; 
-									$_SESSION['otp'] = $otp;
-									$_SESSION['email'] = $Email;
-									header("location: mail.php");
-									
-							//	header("location: forget_1.php");	
-								}
+									$pass=md5($pass);
+									$sql = "update Auth_patient set password = '".$pass."' where P_id = '".$p_id."'" ;
+									$result = $conn->query($sql);
+									echo "<script type='text/javascript'>alert('Password Reset Successful');</script>";
+								//	header("location:successful.php");
+							
+								echo "<script type='text/javascript'>alert('Password Reset Successful'); window.location='successful.php'; </script>";
+							}
 							else
 								{
-									echo "<script type='text/javascript'>alert('Invalid Email Id, please try again');</script>"; 
+									echo "<script type='text/javascript'>alert('Error : Conform  Password Not Equal to  Password');</script>"; 
 								}
+						}
+					else
+						{
+							echo "<script type='text/javascript'>alert('Error : Invalid login');</script>"; 
+
 						}
 				}
 ?>
+				
+				
+			
 
 
 
@@ -106,16 +106,29 @@
   <div class="form">
     <div id="signup">   
       <form action="" method="post">
-      <h1 style="color:white">Forgot Password</h1><br>
+      <h1 style="color:white">Password Reset : Step 3 </h1><br>
       <div class="field-wrap">
-        <label>
-          Enter Registered Email Address<span class="req">*</span>
-        </label>
-        <input type="email" name = "email" required autocomplete="off"/>
+        <input type="password" placeholder = "Enter Password" name = "password" id="password" required autocomplete="off"/>
+		<br/>
+		<input type="password" placeholder = "Confirm Password" name = "conform_password" id="conform_password" required autocomplete="off"/>
       </div>
+      <span id="message"></span>
       
-      <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
+      <input type="submit" id = "buttonActivate" name = "set_pass" class="button button-block"/>
       </form>
+      <script>
+          $('#password, #conform_password').on('keyup', function () {
+                if ($('#password').val() == $('#conform_password').val()) {
+                        $('#message').html('Matching').css('color', 'green');
+                        $("#buttonActivate").prop("disabled", false);
+                } else {
+                        $('#message').html('Not Matching').css('color', 'red');
+                        $("#buttonActivate").prop("disabled", true);
+                }
+         });
+          
+          
+          </script>
 </div>
 </div>
 </div>

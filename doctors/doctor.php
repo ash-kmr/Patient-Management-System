@@ -63,8 +63,8 @@
   <div class="card" style="width: 35rem;">
   <img class="card-img-top img-responsive" width="100%" src="<?php  if($row['image_url'] == null) echo '../Images/images/t3.jpg'; else echo $row['image_url']; ?>" alt="Card image cap">
   <div class="card-body">
-    <h4 class="card-title">Card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <h4 class="card-title"><?php   echo $row['first_name']." ".$row['last_name'];?></h4>
+    <p class="card-text"></p>
     <a href="doctorappointments.php?q=<?php  echo $row['doctor_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Appointments</a>
     <a href="doctorprofile.php?q=<?php  echo $row['doctor_id']; ?>" class="btn btn-primary" style="width: 45%;margin-left:4%">Update Profile</a>
     <a href="doctorreviews.php?q=<?php  echo $row['doctor_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Reviews</a>

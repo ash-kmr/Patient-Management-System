@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Place searches</title>
+    <title>HealthPlus</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <style>
@@ -77,7 +77,7 @@
   <!DOCTYPE html>
 <html lang="en">
 <?php include("mainheader.php") ?>
-<div class="services-breadcrumb" style="padding-top: 5%">
+<div class="services-breadcrumb" style="padding-top: 7%">
     <div class="container">
       <ul>
         <li><a href="index.html" style="font-family: Balthazar; font-size: 1.4em">Home</a><i>|</i></li>

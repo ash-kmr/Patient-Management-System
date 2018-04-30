@@ -1,41 +1,52 @@
 <?php
 
-        include '../includes/connection.php';
+        include 'includes/connection.php';
         session_start();
-        
+        $_SESSION['url'] = $_SERVER['HTTP_REFERER']; 
 			if($_SERVER["REQUEST_METHOD"] == "POST")
 				{
-					if($_POST['Add'])
+					if($_POST['OTP'])
 						{
-							$Email = $conn->escape_string($_POST['email']);
+							$otp = $conn->escape_string($_POST['otp']);
 
-							$sql = "select P_id , count(*) as total from patient where email = '".$Email."'";
+							$sql = "select P_id,otp, date from verify where otp = '".$otp."'";
 							$result = $conn->query($sql);
 							$row = $result->fetch_assoc();	
-							$P_id  = $row['P_id'];
 							
-							if($row['total'])
-								{	
+							//echo "<script type='text/javascript'>alert('$prev_date');</script>"; 
+							//$aaa= $_SERVER['HTTP_REFERER'];
+							//echo "<script>alert('$aaa'); </script>";
+							
+							if($result->num_rows > 0)
+								{
+								        $otp  = $row['otp'];
+							                $prev_date  = $row['date'];
+							                $p_id = $row['P_id'];
+									$curr_date = date('Y-m-d H:i:s');
 									
-									$otp = 	rand();
-									$date = date('Y-m-d H:i:s');
+									$time_diff = "SELECT TIMESTAMPDIFF(SECOND, '".$prev_date."','".$curr_date."') as tt";
+									$result = $conn->query($time_diff);
+									$row = $result->fetch_assoc();
 									
-									$delete = "delete from verify where P_id='".$P_id."'";
-									$conn->query($delete);
+									$time=  $row['tt'];
 									
-									$qy = "insert into verify(P_id,date,otp) values('".$P_id."','"."$date"."','".$otp."')";
-									$conn->query($qy);
-									
-									//echo "<script type='text/javascript'>alert('$otp');</script>"; 
-									$_SESSION['otp'] = $otp;
-									$_SESSION['email'] = $Email;
-									header("location: mail.php");
-									
-							//	header("location: forget_1.php");	
+									if($time>300)
+										{
+										echo "<script>alert('OTP expired ,please generate new OTP and try again'); window.location.href='forget.php'; </script>";
+										}				
+									else
+										{
+												$_SESSION['patient_id'] = p_id;
+												
+												//echo "<script type='text/javascript'>alert('$aa');</script>";
+										        header("location:forget_2.php");
+											//$_SESSION['url'] = $_SERVER['HTTP_REFERER']; 
+										}
+								
 								}
 							else
 								{
-									echo "<script type='text/javascript'>alert('Invalid Email Id, please try again');</script>"; 
+									echo "<script type='text/javascript'>alert('Invalid OTP , please try again');</script>"; 
 								}
 						}
 				}
@@ -106,15 +117,13 @@
   <div class="form">
     <div id="signup">   
       <form action="" method="post">
-      <h1 style="color:white">Forgot Password</h1><br>
+      <h1 style="color:white">Forgot Password : 2 Step</h1><br>
       <div class="field-wrap">
-        <label>
-          Enter Registered Email Address<span class="req">*</span>
-        </label>
-        <input type="email" name = "email" required autocomplete="off"/>
+        <p> An OTP has been send to your Registered Email Address , it will expire in 5 mins** </p>
+        <input placeholder = "Enter OTP" type="number" name = "otp" required autocomplete="off"/>
       </div>
       
-      <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>
+      <input type="submit" id = "buttonActivate" name = "OTP" class="button button-block"/>
       </form>
 </div>
 </div>

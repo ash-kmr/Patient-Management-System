@@ -10,7 +10,7 @@
 ?>
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>HealthPlus</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -53,7 +53,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">WebSiteName</a>
+      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">Health</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">

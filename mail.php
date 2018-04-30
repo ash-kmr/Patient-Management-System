@@ -16,20 +16,19 @@ session_start();
 
 	$mail->setFrom('ravi.8796754@gmail.com', 'Sigma Hospital Solutions Ltd.');
 	//$add = $_POST["email"];
-
-	$email = $_SESSION['email_1'];
-	$otp = $_SESSION['otp_2'];
+	$email = $_SESSION['email'];
+	$otp = $_SESSION['otp'];
 	$mail->AddAddress($email);     // Add a recipient
 
-	//$mail->addReplyTo($email);
- 
-$_SESSION['sign'] =1;
+	$mail->addReplyTo($email);
+
+        $_SESSION['sign']= 1;
 
 	//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 	$mail->isHTML(true);                                  // Set email format to HTML
 
-	$mail->Subject = 'Sign Up';
-	$mail->Body    = 'Dear user, Otp for your sign_up request : '.$otp." .  Kindly use it within 5 mins";
+	$mail->Subject = 'Password Recovery';
+	$mail->Body    = 'Dear user, Otp for your password change request is : '.$otp." .  Kindly use it within 5 mins";
 	$mail->AltBody = 'Sigma solution an enterprise of lahane_group_of_companies';
 
 	if(!$mail->send())

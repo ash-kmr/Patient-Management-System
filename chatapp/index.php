@@ -3,7 +3,7 @@
 Showing Reviews Query as : 
 Select first_name,last_name,image_url,Rating,text from Reviews join Patient using(P_id) where doctor_id = 1;
 -->
-<?include("config.php");include("login.php");?>
+<?php include("config.php"); include('login.php')?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +36,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
     <link href="../assets/css/material-kit.css" rel="stylesheet"/>
   <link href="../assets/css/demo.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="chat.css">
-  <script type="text/javascript" src = "chat.js"></script>
+  
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 <body>
@@ -68,7 +68,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
   <div class="container-fluid">
    <div class="chat container">
     <div class="chatbox col-sm-12">
-     <?
+     <?php
      if(isset($_SESSION['user'])){
       include("chatbox.php");
      }else{
@@ -80,5 +80,6 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
    </div>
    </div>
   </div>
+  <script type="text/javascript" src = "chat.js"></script>
  </body>
 </html>

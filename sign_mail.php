@@ -1,7 +1,7 @@
 <?php
 //include('connection.php');
 require 'PHPMailerAutoload.php';
-session_start();
+
 	$mail = new PHPMailer;
 
 	$mail->SMTPDebug = 4;                               // Enable verbose debug output
@@ -16,14 +16,14 @@ session_start();
 
 	$mail->setFrom('ravi.8796754@gmail.com', 'Sigma Hospital Solutions Ltd.');
 	//$add = $_POST["email"];
-
+session_start();
 	$email = $_SESSION['email_1'];
 	$otp = $_SESSION['otp_2'];
 	$mail->AddAddress($email);     // Add a recipient
 
 	//$mail->addReplyTo($email);
  
-$_SESSION['sign'] =1;
+        $_SESSION['sign'] =0;
 
 	//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 	$mail->isHTML(true);                                  // Set email format to HTML

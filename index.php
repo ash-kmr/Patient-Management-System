@@ -1,12 +1,18 @@
 <?php
 
         session_start();
+        if(isset($_SESSION['forget'])){
+                unset($_SESSION['forget']);
+        }
+        if(isset($_SESSION['sign'])){
+                unset($_SESSION['sign']);
+        }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>HealthPlus</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -22,6 +28,7 @@
 
   <script type="text/javascript" src = "js/login.js"></script>
   <script src = "js/jquery.min.js"></script>
+  
 </head>
 <body>
 <div class = "mynav">
@@ -39,6 +46,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.php">Home</a></li>
         <li><a href="Departments.php">Departments</a></li>
+        <li><a href="chatapp/index.php">IRC Channel</a></li>
         <!--
         <li><a href="#">Page 2</a></li>
         <li><a href="#">Page 3</a></li>
@@ -57,7 +65,7 @@
         
         <?php  }else{ ?>
         
-                <li><button type="button" onclick = "Staff_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
+                <li><a href="staff/staff.php"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php  }?>
         
@@ -200,33 +208,8 @@
                                 //alert(query);
                                 var url = "SignUp.php?"+query;
                                 
-                                //alert(url);
                                 
-                                $.getJSON(url,function(json){
-                                
-                                        var Key = Object.keys(json)[0];
-                                        /*
-                                        Key.forEach(function(key) {
-                                        
-                                        
-                                                alert(key+"="+json[key]);
-                                        });*/
-                                                                               
-                                        if(json[Key] == 'Invalid'){
-                                        
-                                        
-                                                $("#invalidSignUp").css("opacity","1");
-                                                
-                                                //alert('Invalid Username or Password');
-                                        
-                                        }else{
-                                        
-                                        
-                                                location.reload();
-                                        
-                                        }
-                                
-                                });
+                                window.location.href = url;
                                 obj.preventDefault();
                         
                         });
@@ -276,7 +259,7 @@
 			</script>
 		</label>
 	</div>
-          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          <p class="forgot"><a href="forget.php">Forgot Password?</a></p>
           
           <input type="submit" name = "Login"  value = "Log In" class="button button-block"/>
           
@@ -400,7 +383,7 @@
 </div>
 </div>
 <div style="text-align: center; padding-top: 3%; ">
-  <h1><b>Welcome to our world class services</h1>
+  <h1><b>Welcome to our world class services</b></h1>
   <h4 style="letter-spacing: 3px; color: red">We are glad to help you</h4>
 </div>
 </div>
@@ -410,16 +393,16 @@
 </div>
 <div class = "container-fluid" style="padding-top: 3%">
   <div class = "col-sm-3 nonpad" style = "background-color: black">
-    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g1.jpg">
+    <img class = "img-responsive imgclass" style = "opacity:0.2" src="Images/images/g1.jpg">
   </div>
   <div class = "col-sm-3 nonpad" style = "background-color: black">
-    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g2.jpg">
+    <img class = "img-responsive imgclass" style = "opacity:0.2" src="Images/images/g2.jpg">
   </div>
   <div class = "col-sm-3 nonpad" style = "background-color: black">
-    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g3.jpg">
+    <img class = "img-responsive imgclass" style = "opacity:0.2" src="Images/images/g3.jpg">
   </div>
   <div class = "col-sm-3 nonpad" style = "background-color: black">
-    <img class = "img-responsive" style = "opacity:0.2" src="Images/images/g4.jpg">
+    <img class = "img-responsive imgclass" style = "opacity:0.2" src="Images/images/g4.jpg">
   </div>
 </div>
 <div class = "container" style="padding-top: 3%;">
@@ -427,7 +410,16 @@
       <h2 class="w3_heade_tittle_agile">Find a hospital nearby</h2>
       <p class="sub_t_agileits">New in the city? We're glad to help</p>
       </div>
-      <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white"><a href="nearbyhospital.html">GO</a></button></div>
+      <div class = "col-sm-6" style="text-align: left; padding-left: 10%"><button class="pulse-button" style = "color:white"><a href="nearbyhospital.php">GO</a></button></div>
 </div>
 <br><br><br><br>
+<script>
+  $(document).ready(function() {
+    $(".imgclass").hover(function() {
+        $(this).animate({opacity: 1.0}, 200);
+    }, function() {
+        $(this).animate({opacity: 0.2}, 200);
+    });
+});
+  </script>
 <?php include("footer.php") ?>

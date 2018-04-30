@@ -24,14 +24,14 @@
 				        if($result){
 				        
 				                echo '<script>alert("Success")</script>';
-				                $page = $_SERVER['REQUEST_URI'];
-                                                header("Refresh:0; url=$page");
+				                //$page = $_SERVER['REQUEST_URI'];
+                                                header("Location: staff.php");
 				        
 				        }else{
 				        
 				                echo '<script>alert("Please Input P_ID correctly")</script>';
-				                $page = $_SERVER['REQUEST_URI'];
-                                                header("Refresh:0; url=$page");
+				                //$page = $_SERVER['REQUEST_URI'];
+                                                header("Location: staff.php");
 				        
 				        }
 			        }

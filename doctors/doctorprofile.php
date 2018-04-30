@@ -1,4 +1,7 @@
-<?php include("../includes/connection.php"); ?>
+<?php include("../includes/connection.php"); 
+
+        session_start();
+?>
 <?php 
   #if(isset($_GET['q'])){
         
@@ -16,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 				{
 					if(isset($_POST['update']))
 						{
-							$id = 1;//$_SESSION['ID'];
+							$id = $_SESSION['ID'];
 	
 
 							$target_dir = "images/";    //enter the destination
@@ -123,7 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	<div class = "col-sm-1"></div>
 	<form action = "" method = "post"   enctype="multipart/form-data">
 	<div class="col-sm-4">
-		<img id = "blah" class="img-responsive" src="<?php if($row['image_url'] == null) echo '../Images/images/doc.jpg'; else echo $row['image_url'];?>">
+		<img id = "blah" class="img-responsive" src="<?php if($result['image_url'] == null) echo '../Images/images/doc.jpg'; else echo $result['image_url'];?>">
 		<br><br><br>
 		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">	
 	</div>

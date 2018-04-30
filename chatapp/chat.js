@@ -1,5 +1,5 @@
 function scTop(){
- $(".msgs").animate({scrollTop:$(".msgs")[0].scrollHeight});
+ $(".msgs").animate({scrollTop:$(".msgs").get(0).scrollHeight});
 }
 function load_new_stuff(){
  localStorage['lpid']=$(".msgs .msg:last").attr("title");

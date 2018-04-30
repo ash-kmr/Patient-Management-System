@@ -1,4 +1,4 @@
-<?
+<?php
 if(isset($_POST['name']) && !isset($display_case)){
  $name=htmlspecialchars($_POST['name']);
  if($name!=""){
@@ -17,13 +17,12 @@ if(isset($_POST['name']) && !isset($display_case)){
 }elseif(isset($display_case)){
  if(!isset($ermsg)){
 ?>
- <h2>Name Needed For Chatting</h2>
- You must provide a name for chatting. This name will be visible to other users.<br/><br/>
+ <h2>Please select an anonymous name</h2>
  <form action="index.php" method="POST">
-  <div>Your Name : <input name="name" placeholder="A Name Please"/></div>
-  <button>Submit & Start Chatting</button>
+  <div> <input class="form-control" name="name" placeholder="A Name Please"/></div>
+  <button class = "btn btn-info">Submit & Start Chatting</button>
  </form>
-<?
+<?php
  }else{
   echo $ermsg;
  }

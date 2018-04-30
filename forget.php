@@ -1,6 +1,6 @@
 <?php
 
-        include '../includes/connection.php';
+        include 'includes/connection.php';
         session_start();
         
 			if($_SERVER["REQUEST_METHOD"] == "POST")
@@ -9,14 +9,14 @@
 						{
 							$Email = $conn->escape_string($_POST['email']);
 
-							$sql = "select P_id , count(*) as total from patient where email = '".$Email."'";
+							$sql = "select P_id from Patient where email = '".$Email."'";
 							$result = $conn->query($sql);
-							$row = $result->fetch_assoc();	
-							$P_id  = $row['P_id'];
 							
-							if($row['total'])
+							
+							if($result->num_rows > 0)
 								{	
-									
+									$row = $result->fetch_assoc();	
+							                $P_id  = $row['P_id'];
 									$otp = 	rand();
 									$date = date('Y-m-d H:i:s');
 									
@@ -71,6 +71,8 @@
 <script src="assets/js/material-kit.js?v=2.0.0"></script>
 <script type="text/javascript" src = "js/login.js"></script>
   <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script src = "js/jquery.min.js"></script>
+    
   <style>
     body{
       background-color:#E5E7E9;
@@ -87,17 +89,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">WebSiteName</a>
+      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">Health</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="../index.php">Home</a></li>
-        <li><a href="../Departments.php">Departments</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="Departments.php">Departments</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+      
       </div>
       </div>
       </nav>
@@ -108,10 +107,8 @@
       <form action="" method="post">
       <h1 style="color:white">Forgot Password</h1><br>
       <div class="field-wrap">
-        <label>
-          Enter Registered Email Address<span class="req">*</span>
-        </label>
-        <input type="email" name = "email" required autocomplete="off"/>
+        
+        <input type="email" placeholder = "Enter Registered Email Address" name = "email"required autocomplete="off"/>
       </div>
       
       <input type="submit" id = "buttonActivate" name = "Add" class="button button-block"/>

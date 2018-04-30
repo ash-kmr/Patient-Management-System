@@ -54,9 +54,9 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="index.php">Home</a></li>
-        <li><a href="Departments.php">Departments</a></li>
-        <li><a href="nearbyhospital.php">Nearby Hospitals</a></li>
+        <li><a href="../index.php">Home</a></li>
+        <li><a href="../Departments.php">Departments</a></li>
+        <li><a href="../nearbyhospital.php">Nearby Hospitals</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <?php if(isset($_SESSION['ID'])){?>
@@ -66,7 +66,7 @@
         
         <?php } else { ?>
         
-         <li><a href="doctors/doctor.html"><?php  echo $_SESSION['login_user'];?></a></li>
+         <li><a href="#"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php  } ?>
         <li><a href="../logout.php">Logout</a></li>

@@ -16,6 +16,45 @@
         $Mobile_no = $data['mobile_no'];
         $Address = $data['address'];
         $Identification = $data['Identification']; 
+        //echo "<script>alert('".$Email."')</script>";
+        
+                                                $otp = 	rand();
+						$date = date('Y-m-d H:i:s');
+						
+						$_SESSION['email_1'] =  $Email;
+						$_SESSION['otp_2'] = $otp;
+						
+							$_SESSION['first_name'] = $First_Name;
+							$_SESSION['last_name'] = $Last_Name;
+					//	$_SESSION['email_1'] = $conn->escape_string($_POST['Email']);
+						        $_SESSION['password']= $Password;
+							$_SESSION['mobile_no'] = $Mobile_no;
+							$_SESSION['address'] = $Address;
+							$_SESSION['Repr'] = $Identification;
+							/*
+						$aa=$_SESSION['last_name'];
+						echo "<script>alert('$aa'); </script>";
+						*/
+						//$delete = "delete from verify_email where email='".$Email."'";
+						//$conn->query($delete);
+						
+						$qy = "insert into verify_email(email,date,otp) values('".$Email."','".$date."','".$otp."')";
+						$conn->query($qy);
+						// window.location.href='sign_mail.php';
+						header("location:sign_mail.php");
+        /*
+        $data  = array();
+        $query = $_SERVER['QUERY_STRING'];
+        
+        parse_str($query,$data);
+        
+        $First_Name = $data['First_Name'];
+        $Last_Name = $data['Last_Name'];
+        $Email = $data['Email'];
+        $Password = $data['Password'];
+        $Mobile_no = $data['mobile_no'];
+        $Address = $data['address'];
+        $Identification = $data['Identification']; 
         
         $arr = array();
         
@@ -110,9 +149,8 @@
                 
                 
                 }
-        }
-        $json = json_encode($arr);
-        echo $json;      
+        }*/
+         
         
               
         

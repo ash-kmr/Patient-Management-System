@@ -95,7 +95,7 @@
 <div class = "container" style="margin-top: 8%">
   <div class="form">
     <div id="signup">   
-      <form action="Upload.php" method="post" enctype="multipart/form-data">
+      <form style = "color:white" action="Upload.php" method="post" enctype="multipart/form-data">
       <h1 style="color:white">ADD A BILL</h1><br>
       <div class="field-wrap">
         <span id="message"></span>

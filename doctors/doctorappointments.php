@@ -8,7 +8,7 @@
                 
                         $doctor_id = $_GET['q'];
                         /*Update Query For Appointments*/
-                        $sql = "select d.first_name as first_name,d.last_name as last_name,a.Date as Date,s.time_start as time_start,d.image_url as image_url from Patient as d join (Appointments as a join slots as s using(slot_id)) using(doctor_id) where a.doctor_id = '$doctor_id' and a.Date >= now()";
+                        $sql = "select d.first_name as first_name,d.last_name as last_name,a.Date as Date,s.time_start as time_start,d.image_url as image_url from Patient as d join (Appointments as a join slots as s using(slot_id)) using(P_id) where a.doctor_id = '$doctor_id' and a.Date >= now()";
                         
                         $result = $conn->query($sql);
                         /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
@@ -19,47 +19,7 @@
 	        select slot_id from unavailable where doctor_id = 3 and Date = '2018-04-11');  for Available slots*/               
                 }
                 
-                if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
-                        if(isset($_POST['Submit'])){
-                        
-                                $doc_id = explode(" ",$_POST['name']);
-                                $first_name = $doc_id[0];
-                                $last_name = $doc_id[1];
-                                $sql1 = "select doctor_id from Doctor where first_name = '".$first_name."' and last_name = '".$last_name."'";
-                                $result1 = $conn->query($sql1);
-                                $row1 = "";
-                                if($result1){
-                                
-                                        $row1 = $result->fetch_assoc();
-                                
-                                }
-                                
-                                $doctor_id = $row1['doctor_id'];
-                                $Date = $_POST['Date'];
-                                $Time = $_POST['time'];
-                                $sql2 = "select slot_id from slots where time_start = '".$Time."'";
-                                
-                                $result2 = $conn->query($sql2);
-                                $row2 = "";
-                                if($result2){
-                                
-                                        $row2 = $result->fetch_assoc();
-                                
-                                }
-                                
-                                $slot_id = $row2['slot_id'];
-                                $sql = "delete from Appointments where doctor_id = '".$doctor_id."' and Date = '".$Date."' and slot_id = '".$slot_id."'";
-                                if($conn->query($sql) == TRUE){
-                                        echo "Successfully Deleted Appointment";
-                                        $page = $_SERVER['PHP_SELF'];
-                                        header("Refresh: 0; url=$page");
-                                }
-                        }
-                
-                
-                
-                }
      }else{
          
          
@@ -109,7 +69,7 @@
         while(($row = $result->fetch_assoc())){
 ?>
   <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
-  <div class = "col-sm-2"><img class="img-responsive" src="<?php if($row['image_url'] != null)  echo '../user/'.$row['image_url']; ?>"></div>
+  <div class = "col-sm-2"><img class="img-responsive" src="<?php if($row['image_url'] != null)  echo '../user/'.$row['image_url'];else echo '../Images/images/Patient.png'; ?>"></div>
   <div class="col-sm-10">
   <div style="padding-left: 0%"><!--<h3>Doctor IMAGE</h3>--></div>
   <div style="padding-left: 0%"><h4><?php echo $row['first_name']."  ".$row['last_name']; ?></h4></div>

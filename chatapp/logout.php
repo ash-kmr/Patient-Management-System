@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include("config.php");
 $sql=$dbh->prepare("DELETE FROM chatters WHERE name=?");

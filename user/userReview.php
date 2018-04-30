@@ -253,7 +253,7 @@ border-radius: 4px;
                 $(document).ready(function(){
                 
                         var url = "CancelReview.php?q="+x;
-                        alert(url);
+                        //alert(url);
                         $.getJSON(url,function(json){
                 
                                         var Key = Object.keys(json)[0];

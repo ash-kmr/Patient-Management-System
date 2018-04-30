@@ -36,7 +36,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                                 $Desc = $conn->escape_string($_POST['Description']);
                                 
                                 $P_id = $_SESSION['ID'];
-                                echo "<script>alert(".$P_id.")</script>";
+                                //echo "<script>alert(".$P_id.")</script>";
                                 $sql = "insert into Reviews(doctor_id,text,Rating,P_id) values ('".$doctor_id."','".$Desc."','".$Rating."','".$P_id."')";
                                 
                                 $ans = $conn->query($sql);
@@ -252,11 +252,11 @@ function createStar(){
   <div class = "container">
   <!-- dep name card -->
   <div class = "col-sm-3">
-  <img class = "img-rounded img-responsive img-raised" src="<?php if($Result['image_url'] == null) echo 'Images/images/doc.jpg' ; else echo $Result['image_url'];?>"></div>
+  <img class = "img-rounded img-responsive img-raised" src="<?php if($Result['image_url'] == null) echo 'Images/images/doc.jpg' ; else echo 'doctors/'.$Result['image_url'];?>"></div>
   <div class = "col-sm-9"><h3><?php echo $Result['first_name']." ".$Result['last_name'];  ?></h3></div>
-  <div class = "col-sm-9"><h3>Doctor BIO:</h3></div>
-  <div class = "col-sm-9"><h3>Doctor Education:</h3></div>
-  <div class = "col-sm-9"><h3>Doctor Specialization:</h3></div>
+  
+  <div class = "col-sm-9"><h3>Doctor Education: <?php echo $Result['education'];  ?></h3></div>
+  <div class = "col-sm-9"><h3>Doctor Specialization: <?php echo $Result['specialization'];  ?></h3></div>
   <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%; margin-top:5%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
   </div>
   <div class = "container">

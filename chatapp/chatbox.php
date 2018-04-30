@@ -1,4 +1,4 @@
-<?
+<?php
 include("config.php");
 if(isset($_SESSION['user'])){
 ?>
@@ -12,6 +12,6 @@ if(isset($_SESSION['user'])){
   <div class="col-sm-11"><input class="form-control" name="msg" size="30" type="text"/></div>
   <div class = "col-sm-1" style="padding-top: 1%"><button class = "btn btn-info">Send</button></div>
  </form>
-<?
+<?php
 }
 ?>

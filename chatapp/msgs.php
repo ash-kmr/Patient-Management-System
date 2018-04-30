@@ -1,4 +1,4 @@
-<?
+<?php
 include("config.php");
 $sql=$dbh->prepare("SELECT * FROM messages");
 $sql->execute();
