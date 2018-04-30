@@ -32,11 +32,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 							$sql = "update Patient set first_name = '".$firstname."',last_name = '".$lastname."',address = '".$address."', phone = '".$phone."' ,file_url='".$target_file."' where P_id = '".$id."'";
 							if($conn->query($sql))
 							{
-								echo "<script type='text/javascript'>alert('Success');</script>";
+								echo "<script type='text/javascript'>alert('Updated Successfully');</script>";
+								header('Location: '.$_SERVER['HTTP_REFERER']);
 							}
 							else
 							{
-								echo "<script type='text/javascript'>alert('Failure');</script>";
+								echo "<script type='text/javascript'>alert('Failure in Update');</script>";
+								$page = $_SERVER['REQUEST_URI'];
+                                                                header("Refresh:0; url=$page");
 							}
 						}
 				}	

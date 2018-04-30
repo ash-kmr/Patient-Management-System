@@ -99,14 +99,15 @@
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     <a href="userappointments.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Appointments</a>
     <a href="userbill.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Bills</a>
-    <a href="Records.php?q=<?php  echo $row['P_id']; ?>" target ="frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Previous Record</a>
+    <a href="userrecords.php?q=<?php  echo $row['P_id']; ?>" target ="frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Previous Record</a>
     <a href="userReview.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Reviews</a>
+        <a href="userprofile.php?q=<?php  echo $row['P_id']; ?>" class="btn btn-primary" style="width: 45%;margin-left:4%">Update Profile</a>
   </div>
   
 </div>
   </div>
   <div class = "col-sm-9" style="overflow: auto; max-height: 100vh;">
-  <iframe src="userappointments.php?q=<?php  echo $row['P_id']; ?>" width="100%" height="500px" frameborder="0" id="frame" name="frame"></iframe></div>
+  <iframe src="userappointments.php?q=<?php  echo $row['P_id']; ?>" width="100%" height="600px" frameborder="0" id="frame" name="frame"></iframe></div>
   <script>
   
         function changeIframe(x){

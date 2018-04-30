@@ -14,6 +14,9 @@
                         $row = $result->fetch_assoc();
                 }
         
+        }else{
+        
+                 header('Location: ../index.php');
         }
 
 ?>
@@ -49,30 +52,7 @@
   </style>
 </head>
 <body bgcolor="maroon">
-<div class = "mynav">
-	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">WebSiteName</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../index.php">Home</a></li>
-        <li><a href="../Departments.php">Departments</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="../login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-      </div>
-      </div>
-      </nav>
-</div>
+<?php  include 'mainheader.php';?>
 
 <div class="container-fluid" style="padding-top: 5%;">
   <div class = "container-fluid">
@@ -83,14 +63,14 @@
   <div class="card-body">
     <h4 class="card-title">Card title</h4>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="doctorappointments.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Appointments</a>
-    <a href="Records.php?q=<?php  echo $row['P_id']; ?>" target ="frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Previous Record</a>
-    <a href="doctorreviews.php?q=<?php  echo $row['P_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Reviews</a>
+    <a href="doctorappointments.php?q=<?php  echo $row['doctor_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%;margin-left:4%">Appointments</a>
+    <a href="doctorprofile.php?q=<?php  echo $row['doctor_id']; ?>" class="btn btn-primary" style="width: 45%;margin-left:4%">Update Profile</a>
+    <a href="doctorreviews.php?q=<?php  echo $row['doctor_id']; ?>" target = "frame" class="btn btn-primary" style="width: 45%">Reviews</a>
   </div>
 </div>
   </div>
   <div class = "col-sm-9" style="overflow: auto; max-height: 100vh;">
-  <iframe src="doctorsource.html" width="100%" height="500px" frameborder="0"></iframe></div>
+  <iframe name="frame" src="doctorappointments.php?q=<?php  echo $row['doctor_id']; ?>" width="100%" height="600px" frameborder="0"></iframe></div>
 </div>
 
 </body>

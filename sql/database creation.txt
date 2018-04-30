@@ -132,15 +132,13 @@ foreign key(doctor_id)  references Doctor(doctor_id)
 create table Prescription(
 pres_id       int primary key AUTO_INCREMENT ,
 P_id          int ,
-Doctor_id     int ,
-bill_id        int ,                 #Med_Bills  changed  to bill_id
-amount        int ,
-time          time ,
-Symptoms      text ,
+doctor_id     int ,
+Date          timestamp ,
 Diagnosis     text ,
+Prescription  text,
 foreign key(doctor_id)  references Doctor(doctor_id) ,
-foreign key(P_id)  references Patient(P_id) , 
-foreign key(bill_id)  references Med_Bills(bill_id) 
+foreign key(P_id)  references Patient(P_id)
+ 
 
 );
 

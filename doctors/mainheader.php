@@ -1,3 +1,14 @@
+<?php
+
+        /*Connection =.php will be included in inncludes folder*/
+        include("../includes/connection.php");
+
+        //session_start();
+        
+        
+
+?>
+
 <head>
   <title>Bootstrap Example</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +23,7 @@
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/material-kit.css" rel="stylesheet"/>
 <script src="../assets/js/material-kit.js?v=2.0.0"></script>
-  <script src = "../js/jquery.min.js"></script>
+  <script src = "js/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="star.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
@@ -30,6 +41,7 @@
   <link rel="stylesheet" href="../css/login.css">
   <script type="text/javascript" src = "../js/login.js"></script>
     <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/banner.css">
 </head>
 <body>
 <div class = "mynav">
@@ -45,12 +57,42 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Departments</a></li>
-        <li><a href="#">Nearby Hospitals</a></li>
+        <li><a href="../index.php">Home</a></li>
+        <li><a href="../Departments.php">Departments</a></li>
+        <li><a href="../nearbyhospital.php">Nearby Hospitals</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#" data-toggle= "modal" data-target = "#mymodal"><span class="glyphicon glyphicon-log-in"></span> Login/Signup</a></li>
+      <?php if(isset($_SESSION['ID'])){?>
+     
+        <?php   if($_SESSION['Identification'] == 0){ ?>
+        <li><a href ="#"><?php  echo $_SESSION['login_user'];?></a></li>
+        
+        <?php } else { ?>
+        
+         <li><a href="../doctors/doctor.php"><?php  echo $_SESSION['login_user'];?></a></li>
+        
+        <?php  } ?>
+        <li><a href="../logout.php">Logout</a></li>
+     <?php } else{  ?>
+        <li><a href="#" data-toggle= "modal" data-target = "#mymodal">Login/SignUp</a></li>
+        <?php }?>
+      </ul>
+      
+      <script>
+      
+        function doctor_page(){
+        
+                window.location.href = "doctors/doctor.html";
+ 
+        }
+        
+        function user_page(){
+        
+                window.location.href = "user/user.php";
+ 
+        
+        }
+      </script>
       </ul>
       </div>
       </div>
@@ -70,8 +112,8 @@
         <div id="signup">   
           <h1>Sign Up for Free</h1>
           
-          <form action="" method="post">
-          
+          <form action="SignUp.php" method="post" id="SignUpForm">
+           <div id = "invalidSignUp" style="text-align : center; opacity: 0;color : red"><h4>This Email ID is already Registered</h4></div>
           <div class="top-row">
             <div class="field-wrap">
               <label>
@@ -140,20 +182,68 @@
           
           </script>
           </form>
+          
+          <script>
+  
+                $(document).ready(function(){
+          
+                        //alert('Hello');
+                        $("#SignUpForm").submit(function(obj){
+                        
+                        
+                                var query = $("#SignUpForm").serialize();
+                                //alert(query);
+                                var url = "SignUp.php?"+query;
+                                
+                                //alert(url);
+                                
+                                $.getJSON(url,function(json){
+                                
+                                        var Key = Object.keys(json)[0];
+                                        /*
+                                        Key.forEach(function(key) {
+                                        
+                                        
+                                                alert(key+"="+json[key]);
+                                        });*/
+                                                                               
+                                        if(json[Key] == 'Invalid'){
+                                        
+                                        
+                                                $("#invalidSignUp").css("opacity","1");
+                                                
+                                                //alert('Invalid Username or Password');
+                                        
+                                        }else{
+                                        
+                                        
+                                                location.reload();
+                                        
+                                        }
+                                
+                                });
+                                obj.preventDefault();
+                        
+                        });
+                
+                
+                });
+        
+        </script>
 
         </div>
         
         <div id="login">   
           <h1>Welcome Back!</h1>
-          <div id = "invalid" style="text-align : center; opacity: 0;color : red"><h4>INVALID USERNAME/PASSWORD</h4></div>
-          <form action="" method="post">
           
+          <form action="Login.php" method="post" id="LoginForm">
+          <div id = "invalidLogin" style = "text-align:center;opacity:0;color:red">INVALID USERNAME/PASSWORD</div>
             <div class="field-wrap">
             <label>
               Email Address<span class="req">*</span>
             </label>
             <input type="email" name = "Email" required autocomplete="off"/>
-          </div>
+                </div>
           
           <div class="field-wrap">
             <label>
@@ -165,24 +255,70 @@
           <div class="container-fluid"></div>
           <div class = "col-sm-6">
           <label style="margin-left: 12%;">Patient</label>
-            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="user" value="1"><br></div>
+            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="Identification"><br></div>
             <div class = "col-sm-6">
             <label style="margin-left: 12%">Doctor</label>
-             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="doctor" value ="2"></div>
-      <script>
-      
-              $('input[type="checkbox"]').on('change', function() {
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="doctor" name="Identification"></div>
+			<script>
+			
+			        $('input[type="checkbox"]').on('change', function() {
                                         $('input[type="checkbox"]').not(this).prop('checked', false);
                                 });
                                 
-      </script>
-    </label>
-  </div>
+			</script>
+		</label>
+	</div>
           <p class="forgot"><a href="#">Forgot Password?</a></p>
           
           <input type="submit" name = "Login"  value = "Log In" class="button button-block"/>
           
           </form>
+          <script>
+  
+                $(document).ready(function(){
+          
+                        //alert('Hello');
+                        $("#LoginForm").submit(function(obj){
+                        
+                        
+                                var query = $("#LoginForm").serialize();
+                                //alert(query);
+                                var url = "Login.php?"+query;
+                                
+                                //alert(url);
+                                $.getJSON(url,function(json){
+                                
+                                        var Key = Object.keys(json)[0];
+                                        /*
+                                        Key.forEach(function(key) {
+                                        
+                                        
+                                                alert(key+"="+json[key]);
+                                        });*/
+                                       
+                                        if(json[Key] == 'Invalid'){
+                                        
+                                        
+                                                $("#invalidLogin").css("opacity","1");
+                                                
+                                                //alert('Invalid Username or Password');
+                                        
+                                        }else{
+                                        
+                                        
+                                                location.reload();
+                                        
+                                        }
+                                
+                                });
+                                obj.preventDefault();
+                        
+                        });
+                
+                
+                });
+        
+        </script>
 
         </div>
         

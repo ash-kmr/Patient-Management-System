@@ -30,6 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -39,7 +40,7 @@
   <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/material-kit.css" rel="stylesheet"/>
   <link href="../assets/css/demo.css" rel="stylesheet" />
-  <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="..//assets/js/core/jquery.min.js"></script>
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/bootstrap-material-design.js"></script>
 <script src="../assets/js/plugins/moment.min.js"></script>
@@ -52,7 +53,35 @@
       background-color:#E5E7E9;
     }
   </style>
-  <style>
+ 
+
+<script>
+
+function createStar(){
+
+                $(document).ready(function(){
+
+                        
+                       $(".stars_id").each(function(){ 
+                       
+                                var onStar = $(this).attr('class')[0];
+                                //alert(onStar);
+                                
+                                var stars = $(this).children('li.star');
+                                    
+                                   
+                                    
+                                    for (i = 0; i < onStar; i++) {
+                                      $(stars[i]).addClass('selected');
+                                    }
+                            
+                            
+                            });
+                });
+                           
+}
+</script>
+<style>
     .clearfix {
   clear:both;
 }
@@ -77,6 +106,9 @@ border-radius: 4px;
   position:relative;
   margin-bottom:10px;
   
+}
+.fa{
+        font-size:2px;
 }
 
 .header:after {
@@ -172,33 +204,6 @@ border-radius: 4px;
   color:#FF912C;
 }
 </style>
-
-<script>
-
-function createStar(){
-
-                $(document).ready(function(){
-
-                        
-                       $(".stars_id").each(function(){ 
-                       
-                                var onStar = $(this).attr('class')[0];
-                                //alert(onStar);
-                                
-                                var stars = $(this).children('li.star');
-                                    
-                                   
-                                    
-                                    for (i = 0; i < onStar; i++) {
-                                      $(stars[i]).addClass('selected');
-                                    }
-                            
-                            
-                            });
-                });
-                           
-}
-</script>
 </head>
 <body>
 
@@ -211,12 +216,12 @@ function createStar(){
         while(($row = $result->fetch_assoc())){
 ?>
   <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
-  <div class = "col-sm-2"><img src="<?php if($row['image_url'] != null)  echo $row['image_url']; else echo '../Images/images/doc.png'; ?>"></div>
-  <div class="col-sm-10">
-  <div style="padding-left: 0%"><h3>Doctor Name : <?php  echo $row['first_name']." ".$row['last_name'];?></h3></div>
-  <div style="padding-left: 0%"><h4>Ratings : 
+  <div class = "col-sm-2"><img class="img-responsive" src="<?php if($row['image_url'] != null)  echo '../doctors/'.$row['image_url']; else echo '../Images/images/doc.jpg'; ?>"></div>
+  <div class="col-sm-8">
+  <div style="padding-left: 0%"><h3><?php  echo $row['first_name']." ".$row['last_name'];?></h3></div>
+   
   <!-- Change Here -->
-  <div class='rating-stars text-center'>
+  <div class='rating-stars'>
                 <ul class="<?php echo $row['Rating']; ?> stars_id">
                     <li class='star' title='Poor' data-value='1'>
                       <i class='fa fa-star fa-fw'></i>
@@ -237,10 +242,49 @@ function createStar(){
        </div>
   
   <!-- till This -->
-  </h4></div>
-  <div style="padding-left: 0%"><h4>Text :  <?php echo $row['text']; ?></h4></div>
+ 
+  <div style="padding-left: 0%"><h4><?php echo $row['text']; ?></h4></div>
+        <br>
+  </div><div class = "col-sm-2"><button value = "CancelReview"  class="btn btn-danger btn-simple" name="CancelReview" onclick="CancelReview(<?php echo $row['review_id'];?>)">Delete</button></div></div>
+  <script>
   
-  </div>
+        function CancelReview(x){
+        
+                $(document).ready(function(){
+                
+                        var url = "CancelReview.php?q="+x;
+                        alert(url);
+                        $.getJSON(url,function(json){
+                
+                                        var Key = Object.keys(json)[0];
+                                        /*
+                                        Key.forEach(function(key) {
+                                        
+                                        
+                                                alert(key+"="+json[key]);
+                                        });*/
+                                                                               
+                                        if(json[Key] == 'Invalid'){
+                                        
+                                        
+                                                alert('Not possible to delete');
+                                                
+                                                //alert('Invalid Username or Password');
+                                        
+                                        }else{
+                                        
+                                                
+                                                location.reload();
+                                        
+                                        }
+                
+                        });
+                });
+        
+        
+        }
+  </script>
+  <br>
   <?php }
      }else{
   ?>

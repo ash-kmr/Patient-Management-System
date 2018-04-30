@@ -6,8 +6,9 @@
         if(isset($_SESSION['ID']) && $_SESSION['Identification'] == 1){
         
                 $doctor_id = $_SESSION['ID'];
+                //echo "<script>alert(".$doctor_id.")</script>";
         
-                $sql = "select * from Reviews join Patients using(P_id) where doctor_id = '".$doctor_id."'";
+                $sql = "select * from Reviews join Patient using(P_id) where doctor_id = '".$doctor_id."'";
         
                 $result = $conn->query($sql);
         
@@ -22,6 +23,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="../css/style.css">
   <link href='https://fonts.googleapis.com/css?family=Balthazar' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Stalinist One' rel='stylesheet'>
@@ -196,7 +198,7 @@ function createStar(){
 <body>
 
 
-<div class = "header">Reviews</div>
+<div style="background-color: #1C2833; color:#B2BABB;border-radius:5px;padding-top:1.5%;padding-bottom:1.5%;text-align:center"><h2>Reviews</h2></div>
 <br><br>
 
 <!-- Repeat this -->
@@ -204,12 +206,11 @@ function createStar(){
         while(($row = $result->fetch_assoc())){
 ?>
   <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
-  <div class = "col-sm-2"><img src="<?php if($row['image_url'] != null)  echo $row['image_url']; else echo '../Images/images/Patient.png'; ?>"></div>
+  <div class = "col-sm-2"><img class="img-responsive" src="<?php if($row['image_url'] != null)  echo '../user/'.$row['image_url']; else echo '../Images/images/Patient.png'; ?>"></div>
   <div class="col-sm-10">
-  <div style="padding-left: 0%"><h3>Patient Name : <?php  echo $row['first_name']." ".$row['last_name'];?></h3></div>
-  <div style="padding-left: 0%"><h4>Ratings : 
+  <div style="padding-left: 0%"><h3><?php  echo $row['first_name']." ".$row['last_name'];?></h3></div>
   <!-- Change Here -->
-  <div class='rating-stars text-center'>
+  <div class='rating-stars'>
                 <ul class="<?php echo $row['Rating']; ?> stars_id">
                     <li class='star' title='Poor' data-value='1'>
                       <i class='fa fa-star fa-fw'></i>
@@ -230,14 +231,17 @@ function createStar(){
        </div>
   
   <!-- till This -->
-  </h4></div>
   <div style="padding-left: 0%"><h4>Text :  <?php echo $row['text']; ?></h4></div>
   
   </div>
   <?php }
-     }
+     }else{
   ?>
+  <h1 style="opacity: 0.5;text-align: center">No Reviews Yet</h1>
+  <?php
+  }
   
+  ?>
   <script>
                   
                         createStar();

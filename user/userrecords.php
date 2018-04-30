@@ -7,7 +7,7 @@
                 
                         $P_id = $_GET['q'];
                         /*Update Query For Appointments*/
-                        $sql = "select * from Bills_Details where P_id = '$P_id' order by Date DESC";
+                        $sql = "select * from Prescription join Doctor using(doctor_id) where P_id = '$P_id' order by Date DESC";
                         
                         $result = $conn->query($sql);
                         /*Sample Query for cancelling the appointment    "delete from Appointments where App_ID = id"  location.reload() for reloading*/ 
@@ -56,7 +56,7 @@
 </head>
 <body>
 
-<div style="background-color: #1C2833; color:#B2BABB;border-radius:5px;padding-top:1.5%;padding-bottom:1.5%;text-align:center"><h2>Bills</h2></div>
+<div style="background-color: #1C2833; color:#B2BABB;border-radius:5px;padding-top:1.5%;padding-bottom:1.5%;text-align:center"><h2>Prescriptions</h2></div>
 <br><br>
 
 <!-- Repaeat this -->
@@ -64,20 +64,22 @@
         while(($row = $result->fetch_assoc())){
 ?>
   <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
-  <div class = "col-sm-2"></div>
-  <div class="col-sm-10">
-  <div style="padding-left: 0%"><h3>Bill ID : <?php echo $row['Bill_ID']; ?></h3></div>
+  <div class = "col-sm-4"><img src="<?php if($row['Doctor.image_url'] == null) echo '../Images/images/doc.jpg';else echo $row['Doctor.image_url'];?>" style="widht:100%;height:100%"></div>
+  <div class="col-sm-1"></div>
+  <div class="col-sm-7">
+  <div style="padding-left: 0%"><h3>Prescription ID : <?php echo $row['pres_id']; ?></h3></div>
+  <div style="padding-left: 0%"><h4>Doctor Name : <?php  echo $row['first_name']." ".$row['last_name'];?></h4></div>
   <div style="padding-left: 0%"><h3>Date : <?php echo $row['Date']; ?></h3></div>
-  <div style="padding-left: 0%"><h4>Reason : <?php echo $row['Reason']; ?></h4></div>
-  <div style="padding-left: 0%"> <h4>Amount : <?php echo $row['Amount'];?></h4></div>
-  <div style="padding-left: 0%"> <h4>Download Bill : <a href="<?php if($row['image_url'] == null) echo '#';else echo '../staff/'.$row['image_url']; ?>" download>Download</a></h4></div>
+  <div style="padding-left: 0%"><h4>Diagnosis : <?php echo $row['Diagnosis']; ?></h4></div>
+  <div style="padding-left: 0%"> <h4>Prescription Given : <?php echo $row['Prescription'];?></h4></div>
+  <div style="padding-left: 0%"> <h4>Download Prescription : <a href="<?php if($row['Prescription.image_url'] == null) echo '#';else echo '../doctors/'.$row['Prescription.image_url']; ?>" download>Download</a></h4></div>
   </div>
   </div>
   <?php   }
   
    }else{ ?>
    
-        <h1 style="opacity: 0.5;text-align: center">No Bills Uploaded Yet</h1> 
+        <h1 style="opacity: 0.5;text-align: center">No Prescriptions Uploaded Yet</h1> 
    <?php } ?>
   <!-- Upto this -->
   </div>

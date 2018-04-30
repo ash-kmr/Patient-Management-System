@@ -109,7 +109,7 @@
         while(($row = $result->fetch_assoc())){
 ?>
   <div class = "card card-1" style="margin-left: 0%;border-radius: 10px; margin-right: 0%; ">
-  <div class = "col-sm-2"><img src="<?php if($row['image_url'] != null)  echo $row['image_url']; ?>"></div>
+  <div class = "col-sm-2"><img class="img-responsive" src="<?php if($row['image_url'] != null)  echo '../doctors/'.$row['image_url']; ?>"></div>
   <div class="col-sm-10">
   <div style="padding-left: 0%"><!--<h3>Doctor IMAGE</h3>--></div>
   <div style="padding-left: 0%"><h4><?php echo $row['first_name']."  ".$row['last_name']; ?></h4></div>

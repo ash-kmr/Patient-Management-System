@@ -66,7 +66,7 @@
         
         <?php } else { ?>
         
-         <li><a href="doctors/doctor.html"><?php  echo $_SESSION['login_user'];?></a></li>
+         <li><a href="doctors/doctor.php"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php  } ?>
         <li><a href="logout.php">Logout</a></li>
@@ -146,7 +146,14 @@
             </label>
                 <input type="text" name="address" autocomplete="off"/>
           </div>
-          
+          <div class="field-wrap">
+          <div class = "col-sm-6">
+          <label style="margin-left: 12%;">Patient</label>
+            <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Patient" name="Identification"><br></div>
+            <div class = "col-sm-6">
+            <label style="margin-left: 12%">Staff</label>
+             <input type="checkbox" style="width: 20px; height: 20px;margin-top: 5%" value="Staff" name="Identification"></div>
+          </div><br><br><br>
           
           <div class="field-wrap">
             <label>

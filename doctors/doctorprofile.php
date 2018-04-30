@@ -1,11 +1,14 @@
+<?php include("../includes/connection.php"); ?>
 <?php 
-
-                include "../includes/connection.php";
-                $sql = "select first_name, last_name, specialization, education from Doctor where doctor_id =1"; 
+  #if(isset($_GET['q'])){
+        
+                $doctor_id = $_GET['q'];
+                
+                $sql = "select * from Doctor where doctor_id ='".$doctor_id."'"; 
         
                 $result = $conn->query($sql);
-                $row = $result->fetch_assoc();
-
+                $result = $result->fetch_assoc();
+  #      }
 ?>
 <?php
 //echo "<script>alert('entered as'); </script>";
@@ -16,28 +19,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 							$id = 1;//$_SESSION['ID'];
 	
 
-		$target_dir = "images/";    //enter the destination
-    echo "<script>alert($target_dir);</script>";
-				$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
-				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+							$target_dir = "images/";    //enter the destination
+							echo "<script>alert($target_dir);</script>";
+							
+							if($_FILES["fileToUpload"]["name"]){
+							        $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+							
+							$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 				
-				if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
-					{
-						if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
-							{        
-								move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
-							}
-					}
+							if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
+								{
+									if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
+										{        
+											move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+											echo 'moved file to destination directory';
+										}
+								}
+                                                        }else{
+                                                        
+                                                                $target_file = $row['image_url'];
+                                                        }
    
-	$firstname = $conn->escape_string($_POST['firstname']);
-	$lastname = $conn->escape_string($_POST['lastname']);
-	$address = $conn->escape_string($_POST['education']);
-	$phone = $conn->escape_string($_POST['spec']);
-	$aa= $firstname." ".$lastname." ".$address." ".$phone;
-	echo "<script type='text/javascript'>alert('$aa');</script>";
-	$sql = "update Patient set first_name = '$firstname', last_name = '$lastname' and address = '$address' and phone = '$phone' where P_id = '$id'";
-	$conn->query($sql);
-	
+							$firstname = $conn->escape_string($_POST['firstname']);
+							$lastname = $conn->escape_string($_POST['lastname']);
+							$edu = $conn->escape_string($_POST['education']);
+							$spec = $conn->escape_string($_POST['spec']);
+							//$aa= $firstname." ".$lastname." ".$address." ".$phone;
+						//	echo "<script type='text/javascript'>alert('$aa');</script>";
+							
+							$sql = "update Doctor set first_name = '".$firstname."',last_name = '".$lastname."',education = '".$edu."', specialization = '".$spec."' ,image_url='".$target_file."' where doctor_id = '".$id."'";
+							if($conn->query($sql))
+							{
+								echo "<script type='text/javascript'>alert('Success');</script>";
+								header('Location: doctor.php');
+							}
+							else
+							{
+								echo "<script type='text/javascript'>alert('Failure');</script>";
+								$page = $_SERVER['REQUEST_URI'];
+                                                                header("Refresh:0; url=$page");
+							}
 						}
 				}	
 ?>
@@ -94,30 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
 </script>
-<div class = "mynav">
-	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">WebSiteName</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../index.php">Home</a></li>
-        <li><a href="../Departments.php">Departments</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="../login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-      </div>
-      </div>
-      </nav>
-      </div>
+
 
 <div class = "container" style="margin-top: 10%; margin-bottom: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
 <div class = "container-fluid" style="margin-top: 5%; margin-bottom: 5%">
@@ -125,7 +123,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	<div class = "col-sm-1"></div>
 	<form action = "" method = "post"   enctype="multipart/form-data">
 	<div class="col-sm-4">
-		<img id = "blah" src="../Images/images/t3.jpg">
+		<img id = "blah" class="img-responsive" src="<?php if($row['image_url'] == null) echo '../Images/images/doc.jpg'; else echo $row['image_url'];?>">
 		<br><br><br>
 		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">	
 	</div>

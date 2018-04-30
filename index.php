@@ -49,11 +49,11 @@
      <?php if(isset($_SESSION['ID'])){?>
      
         <?php   if($_SESSION['Identification'] == 0){ ?>
-        <li><button type="button" onclick = "user_page()" class="btn btn-default btn-default2" style="margin-top: 20%"><?php  echo $_SESSION['login_user'];?></button></li>
+        <li><a href="user/user.php"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php } else if($_SESSION['Identification'] == 1) { ?>
         
-         <li><button type="button" onclick = "doctor_page()" class="btn btn-default btn-default2" style="margin-top: 25%"><?php  echo $_SESSION['login_user'];?></button></li>
+         <li><a href="doctors/doctor.php"><?php  echo $_SESSION['login_user'];?></a></li>
         
         <?php  }else{ ?>
         
@@ -61,7 +61,7 @@
         
         <?php  }?>
         
-        <li><button type="button" onclick = "logout_page()" class="btn btn-default btn-default2" style="margin-top: 25%">Logout</button></li>
+        <li><button type="button" onclick = "logout_page()" class="btn btn-default btn-default2" style="margin-top: 25%;margin-left:5%">Logout</button></li>
      <?php } else{  ?>
         <li><button type="button" class="btn btn-default btn-default2" data-toggle= "modal" data-target = "#mymodal" style="margin-top: 25%">Login</button></li>
         <?php }?>
@@ -71,7 +71,7 @@
       
         function doctor_page(){
         
-                window.location.href = "doctors/doctor.html";
+                window.location.href = "doctors/doctor.php";
  
         }
         

@@ -21,11 +21,12 @@
         $arr = array();
         
         if($Identification == 'Patient'){
-        
-                $sql = "select * from Auth_patient join Patient using(P_id) where email = '".$username."' and password = '".$password."'"; 
+                
+                $sql = "select * from Auth_patient join Patient using(P_id) where Auth_patient.email = '".$username."' and password = '".$password."'"; 
                 $result = $conn->query($sql);
+                           
                 if($result->num_rows > 0){
-                                
+                               
                                         
                         $row  = $result->fetch_assoc();
                                         
@@ -63,7 +64,7 @@
         
         }else{
         
-                $sql = "select * from Auth_staff join Staff using(staff_id) where email = '".$username."' and password = '".$password."'";
+                $sql = "select * from Auth_staff join Staff using(staff_id) where Auth_staff.email = '".$username."' and password = '".$password."'";
                 $result = $conn->query($sql);
                 if($result->num_rows > 0){
                         

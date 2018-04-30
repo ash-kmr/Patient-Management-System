@@ -1,37 +1,71 @@
 <?php
 //echo "<script>alert('entered as'); </script>";
+include '../includes/connection.php';
+session_start();
+if(isset($_SESSION['ID']) && $_SESSION['Identification'] == 0){
+
+        $P_id = $_GET['q'];
+        $Sample = "select * from Patient where P_id = '".$P_id."'";
+        $result = $conn->query($Sample);
+        if($result->num_rows > 0){
+        
+                $row = $result->fetch_assoc();
+                //$ImageFile = substr($row['image_url'],7);
+        
+        }
+        
 if($_SERVER["REQUEST_METHOD"] == "POST")
 				{
 					if($_POST['update'])
 						{
-							$id = 1;//$_SESSION['ID'];
-	echo "<script>alert('entered as'); </script>";
-	include("../includes/connection.php");
+							$id = $_GET['q'];
+							
+							//echo "<script>alert('entered as'); </script>";
+							include("../includes/connection.php");
 
-		$target_dir = "C:/xampp/htdocs/LOG/uploads/";    //enter the destination
-				$target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
-				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+							$target_dir = "Images/";    //enter the destination
+							if($_FILES["fileToUpload"]["name"]){
+							        $target_file = $target_dir.basename($_FILES["fileToUpload"]["name"]);
+							
+							$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 				
-				if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
-					{
-						if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
-							{        
-								move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
-								echo 'moved file to destination directory';
+							if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" )
+								{
+									if (is_uploaded_file($_FILES['fileToUpload']['tmp_name']))
+										{        
+											move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_file);
+											//echo 'moved file to destination directory';
+										}
+								}
+                                                        }else{
+                                                        
+                                                                $target_file = $row['image_url'];
+                                                        }
+							$firstname = $conn->escape_string($_POST['firstname']);
+							$lastname = $conn->escape_string($_POST['lastname']);
+							$address = $conn->escape_string($_POST['address']);
+							$phone = $conn->escape_string($_POST['phone']);
+							//$aa= $firstname." ".$lastname." ".$address." ".$phone;
+							//echo "<script type='text/javascript'>alert('$aa');</script>";
+							
+							$sql = "update Patient set first_name = '".$firstname."',last_name = '".$lastname."',address = '".$address."', phone = '".$phone."' ,image_url='".$target_file."' where P_id = '".$id."'";
+							if($conn->query($sql))
+							{
+								echo "<script type='text/javascript'>alert('Updated Successfully');</script>";
+								header('Location: user.php');
 							}
-					}
-   
-	$firstname = $conn->escape_string($_POST['firstname']);
-	$lastname = $conn->escape_string($_POST['lastname']);
-	$address = $conn->escape_string($_POST['address']);
-	$phone = $conn->escape_string($_POST['phone']);
-	$aa= $firstname." ".$lastname." ".$address." ".$phone;
-	echo "<script type='text/javascript'>alert('$aa');</script>";
-	//$sql = "update Patient set first_name = '$firstname', last_name = '$lastname' and address = '$address' and phone = '$phone' where P_id = '$id'";
-	//$conn->query($sql);
-	
+							else
+							{
+								echo "<script type='text/javascript'>alert('Failure in Update');</script>";
+								$page = $_SERVER['REQUEST_URI'];
+                                                                header("Refresh:0; url=$page");
+							}
 						}
-				}	
+				}
+}else{
+
+        header('Location: ../index.php');
+}	
 ?>
 
 
@@ -88,30 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
     }
 </script>
-<div class = "mynav">
-	 <nav class="navbar navbar-inverse navbar-fix navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" style = "color:black; font-size:1.5em" href="#">WebSiteName</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../index.php">Home</a></li>
-        <li><a href="../Departments.php">Departments</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="../login-signup/php/signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="../login-signup/php/login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-      </div>
-      </div>
-      </nav>
-      </div>
+
 
 <div class = "container" style="margin-top: 10%; margin-bottom: 10%; background-color: #EFF6F9; width: wrap-content; height: wrap-content; border-radius: 20px">
 <div class = "container-fluid" style="margin-top: 10%; margin-bottom: 10%">
@@ -119,9 +130,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	<form action="" method = "post"  enctype="multipart/form-data">
 	<div class = "col-sm-1"></div>
 	<div class="col-sm-4">
-		<img id = "blah" src="../Images/images/t3.jpg">
+		<img id = "blah" class="img-responsive" src="<?php if($row['image_url'] == null) echo '../Images/images/t3.jpg'; else echo $row['image_url'];?>">
 		<br><br><br>
-		<input type="file" name="fileToUpload" id="fileToUpload"  onchange="readURL(this);">
+		<input type="file" name="fileToUpload" id="fileToUpload" onchange="readURL(this);">
 		 
 	</div>
 	
@@ -131,19 +142,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">First Name</label>
-				<input type="text" class="form-control" name = 'firstname' value = <?php echo $result['first_name'] ?> >
+				<input type="text" class="form-control" name = 'firstname' value = <?php echo $row['first_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Last Name</label>
-				<input type="text" class="form-control" name = 'lastname' value = <?php echo $result['last_name'] ?> >
+				<input type="text" class="form-control" name = 'lastname' value = <?php echo $row['last_name'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Address</label>
-				<input type="text" class="form-control" name = 'address' value = <?php echo $result['address'] ?> >
+				<input type="text" class="form-control" name = 'address' value = <?php echo $row['address'] ?> >
 			</div>
 			<div class="form-group label-floating">
 				<label class="control-label" style="font-size:1.2em">Phone Number</label>
-				<input type="number" class="form-control" name = 'phone' <?php echo $result['phone'] ?> >
+				<input type="number" class="form-control" name = 'phone' value = <?php echo $row['phone'] ?> >
 			</div>
 			<input type = 'submit' name = 'update' class="btn btn-info">Save changes</button>
 		

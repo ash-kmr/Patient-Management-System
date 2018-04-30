@@ -8,7 +8,7 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
         session_start();
         
         
-        $_SESSION['url'] = $_SESSION['REQUEST_URI'];
+        //$_SESSION['url'] = $_SESSION['REQUEST_URI'];
         //$result = "";
         if(isset($_GET['q'])){
         
@@ -30,20 +30,21 @@ Select first_name,last_name,image_url,Rating,text from Reviews join Patient usin
                 
                         if(isset($_POST['Review'])){
                         
+                                
                                 $Rating = $conn->escape_string($_POST['Ratings']);        
                         
                                 $Desc = $conn->escape_string($_POST['Description']);
                                 
                                 $P_id = $_SESSION['ID'];
-                        
+                                echo "<script>alert(".$P_id.")</script>";
                                 $sql = "insert into Reviews(doctor_id,text,Rating,P_id) values ('".$doctor_id."','".$Desc."','".$Rating."','".$P_id."')";
                                 
                                 $ans = $conn->query($sql);
                                 
                                 if($ans){
                                 
-                                        $page = $_SERVER['REQUEST_URI'];
-                                        header("Refresh:0; url=$page");
+                                       
+                                        header("Refresh:0");
                                 
                                 }
                         }else if(isset($_POST['CancelReview'])){
@@ -256,21 +257,20 @@ function createStar(){
   <div class = "col-sm-9"><h3>Doctor BIO:</h3></div>
   <div class = "col-sm-9"><h3>Doctor Education:</h3></div>
   <div class = "col-sm-9"><h3>Doctor Specialization:</h3></div>
-  <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
+  <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%; margin-top:5%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
   </div>
   <div class = "container">
-    <h3>Reviews</h3>
+    <h3 style = "text-align:center"><b>Reviews</b></h3>
     <br>
-    <hr>
     <?php if($result && $result->num_rows > 0){
         while(($row = $result->fetch_assoc())){
 ?>
-
-
-        <h4><?php  echo $row['first_name']." ".$row['last_name']; ?></h4>
+<hr>
+        <div class = 'col-sm-9'>
+        <h4><b><?php  echo $row['first_name']." ".$row['last_name']; ?></b></h4>
         <!-- Edit Here -->
     <!-- <h4><?php   echo $row['Rating']?></h4> -->
-    <div class='rating-stars text-center'>
+    <div class='rating-stars'>
                 <ul class="<?php echo $row['Rating']; ?> stars_id">
                     <li class='star' title='Poor' data-value='1'>
                       <i class='fa fa-star fa-fw'></i>
@@ -290,19 +290,20 @@ function createStar(){
                   </ul>
        </div>
     <!-- ------------------------------------------- -->
-    <h4><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
-    else echo $row['text'] ?></h4>
+    <h5><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
+    else echo $row['text'] ?></h5>
     <hr>
-    
+    </div>
+    <div class = 'col-sm-3'>
     <?php if(isset($_SESSION['ID'])){  ?>
     
         <?php if($_SESSION['ID'] == $row['P_id']) {?>
         
-                <button id= "<?php echo $row['review_id'];?>" class="btn btn-alert" style="margin-bottom: 3%" onclick="CancelReview(this)">Cancel Review</button>
+                <button id= "<?php echo $row['review_id'];?>" class="btn btn-danger" style="margin-bottom: 3%;font-size:0.6" onclick="CancelReview(this)">Delete</button>
         
         <?php } ?>
     
-    <?php } ?>
+    <?php } ?></div>
     <?php
         }
         
@@ -318,7 +319,8 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Delete Review</h4>
+                <p> Are you sure to delete this? </p>
               </div>
               <form action="" method="post">
               
@@ -397,7 +399,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Add a Review</h4>
               </div>
               
               <div class="modal-body">
@@ -441,7 +443,7 @@ function createStar(){
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">Book Appointment with this Doctor</h4>
               </div>
               <div class = "modal-body">
                         <div class="month">      
