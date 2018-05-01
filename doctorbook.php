@@ -262,17 +262,13 @@ function createStar(){
   <div class = "col-sm-3">
   <img class = "img-rounded img-responsive img-raised" src="<?php if($Result['image_url'] == null) echo 'Images/images/doc.jpg' ; else echo 'doctors/'.$Result['image_url'];?>"></div>
   <div class = "col-sm-9"><h3><?php echo $Result['first_name']." ".$Result['last_name'];  ?></h3></div>
-<<<<<<< HEAD
+
   
   <div class = "col-sm-9"><h3>Doctor Education: <?php echo $Result['education'];  ?></h3></div>
   <div class = "col-sm-9"><h3>Doctor Specialization: <?php echo $Result['specialization'];  ?></h3></div>
-  <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%; margin-top:5%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
-=======
-  <div class = "col-sm-9"><h3>Doctor BIO:</h3></div>
-  <div class = "col-sm-9"><h3>Doctor Education:</h3></div>
-  <div class = "col-sm-9"><h3>Doctor Specialization:</h3></div>
+  
   <div class = "col-sm-9"><button class="btn btn-alert" style="margin-bottom: 3%" onclick="myFunctionBook(this)">Book AppointMent</button></div>
->>>>>>> bfbd3bcdbacd0781698723ad225cc3f3b38359b6
+
   </div>
   <div class = "container">
     <h3>Reviews</h3>
@@ -282,7 +278,7 @@ function createStar(){
         while(($row = $result->fetch_assoc())){
 ?>
 
-
+        <div class="col-sm-9">
         <h4><?php  echo $row['first_name']." ".$row['last_name']; ?></h4>
         <!-- Edit Here -->
     <!-- <h4><?php   echo $row['Rating']?></h4> -->
@@ -305,20 +301,23 @@ function createStar(){
                     </li>
                   </ul>
        </div>
+       
     <!-- ------------------------------------------- -->
     <h4><?php  if($row['text'] == null) echo 'lorem adsklfna;sdfnaldsnadl;ndskv n;ewirgnwa;eldkvnslv dz/.sv a;fwje;ofenaksldgnvdslv .zxc,v sd/fm.ewaofj';
     else echo $row['text'] ?></h4>
     <hr>
-    
+    </div>
+       <div class="col-sm-3">
     <?php if(isset($_SESSION['ID'])){  ?>
     
         <?php if($_SESSION['ID'] == $row['P_id']) {?>
         
-                <button id= "<?php echo $row['review_id'];?>" class="btn btn-alert" style="margin-bottom: 3%" onclick="CancelReview(this)">Cancel Review</button>
+                <button id= "<?php echo $row['review_id'];?>" class="btn btn-danger" style="margin-bottom: 3%" onclick="CancelReview(this)">Cancel Review</button>
         
         <?php } ?>
     
     <?php } ?>
+    </div>
     <?php
         }
         

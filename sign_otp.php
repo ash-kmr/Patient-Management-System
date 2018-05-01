@@ -130,7 +130,8 @@ $sql1 = "insert into Patient(first_name,last_name,phone,email,address) values ('
 								}
 							else
 								{
-									echo "<script type='text/javascript'>alert('Invalid OTP , please try again');</script>"; 
+									echo "<script type='text/javascript'>alert('Invalid OTP , please try again'); location.reload();</script>";
+									 
 								}
 						}
 				}
